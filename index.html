@@ -55,17 +55,6 @@
       box-shadow: 0 8px 32px rgba(99,102,241,0.12);
     }
 
-    .contact-link {
-      transition: color 0.2s, transform 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .contact-link:hover {
-      color: #6366f1;
-      transform: translateX(-4px);
-    }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -83,37 +72,37 @@
 
   <!-- ===== HERO ===== -->
   <header class="gradient-hero text-white">
-    <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-20 text-center">
 
       <!-- Avatar -->
-      <div class="animate-fade-in-up mx-auto mb-6 w-28 h-28 rounded-full bg-primary-400 flex items-center justify-center text-5xl font-black border-4 border-white/30 shadow-2xl select-none">
+      <div class="animate-fade-in-up mx-auto mb-5 w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-primary-400 flex items-center justify-center text-4xl sm:text-5xl font-black border-4 border-white/30 shadow-2xl select-none">
         م
       </div>
 
-      <h1 class="animate-fade-in-up delay-100 text-4xl md:text-5xl font-black mb-3 tracking-tight">
+      <h1 class="animate-fade-in-up delay-100 text-3xl sm:text-4xl md:text-5xl font-black mb-2 tracking-tight">
         محمود مجدي
       </h1>
-      <p class="animate-fade-in-up delay-200 text-primary-200 text-xl md:text-2xl font-semibold mb-6">
+      <p class="animate-fade-in-up delay-200 text-primary-200 text-lg sm:text-xl md:text-2xl font-semibold mb-5">
         Full Stack Developer
       </p>
 
       <!-- Quick info pills -->
-      <div class="animate-fade-in-up delay-300 flex flex-wrap justify-center gap-3 text-sm">
-        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-4 py-1.5 rounded-full border border-white/20">
+      <div class="animate-fade-in-up delay-300 flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
+        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">
           📍 الإسكندرية، مصر
         </span>
-        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-4 py-1.5 rounded-full border border-white/20">
+        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">
           🎂 25 سنة
         </span>
-        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-4 py-1.5 rounded-full border border-white/20">
+        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">
           🪖 ضابط احتياط
         </span>
       </div>
 
       <!-- CTA -->
-      <div class="animate-fade-in-up delay-400 mt-8">
+      <div class="animate-fade-in-up delay-400 mt-7">
         <a href="tel:+201228086441"
-           class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold px-8 py-3 rounded-full shadow-lg hover:bg-primary-50 transition-colors text-lg">
+           class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full shadow-lg hover:bg-primary-50 transition-colors text-base sm:text-lg">
           📞 تواصل الآن
         </a>
       </div>
@@ -121,111 +110,106 @@
   </header>
 
   <!-- ===== MAIN CONTENT ===== -->
-  <main class="max-w-4xl mx-auto px-6 py-14 space-y-10">
+  <main class="max-w-4xl mx-auto px-3 sm:px-6 py-8 sm:py-14 space-y-6 sm:space-y-10">
 
     <!-- About -->
-    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-      <h2 class="text-2xl font-black text-primary-700 mb-4 flex items-center gap-2">
-        <span class="w-1.5 h-8 bg-primary-500 rounded-full inline-block"></span>
+    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8">
+      <h2 class="text-xl sm:text-2xl font-black text-primary-700 mb-3 sm:mb-4 flex items-center gap-2">
+        <span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>
         نبذة عني
       </h2>
-      <p class="text-slate-600 leading-relaxed text-lg">
+      <p class="text-slate-600 leading-relaxed text-base sm:text-lg">
         مطوّر Full Stack شغوف بتقنيات الويب الحديثة، أجمع بين مهارات تطوير الواجهات الأمامية والخلفية لبناء تطبيقات متكاملة وعالية الأداء.
         خريج كلية الحقوق جامعة الإسكندرية، وخدمت ضابطاً في الاحتياط. أسعى دائماً إلى تقديم حلول برمجية إبداعية تلبي احتياجات المستخدمين.
       </p>
     </section>
 
     <!-- Skills -->
-    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-      <h2 class="text-2xl font-black text-primary-700 mb-6 flex items-center gap-2">
-        <span class="w-1.5 h-8 bg-primary-500 rounded-full inline-block"></span>
+    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8">
+      <h2 class="text-xl sm:text-2xl font-black text-primary-700 mb-4 sm:mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>
         المهارات التقنية
       </h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
 
-        <!-- Frontend -->
-        <div class="skill-badge bg-orange-50 border border-orange-200 text-orange-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">🟠</div>
-          <div class="font-bold text-sm">HTML</div>
+        <div class="skill-badge bg-orange-50 border border-orange-200 text-orange-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">🟠</div>
+          <div class="font-bold text-xs sm:text-sm">HTML</div>
         </div>
-        <div class="skill-badge bg-blue-50 border border-blue-200 text-blue-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">🎨</div>
-          <div class="font-bold text-sm">CSS</div>
+        <div class="skill-badge bg-blue-50 border border-blue-200 text-blue-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">🎨</div>
+          <div class="font-bold text-xs sm:text-sm">CSS</div>
         </div>
-        <div class="skill-badge bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">⚡</div>
-          <div class="font-bold text-sm">JavaScript</div>
+        <div class="skill-badge bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">⚡</div>
+          <div class="font-bold text-xs sm:text-sm">JavaScript</div>
         </div>
-        <div class="skill-badge bg-blue-50 border border-blue-200 text-blue-800 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">🔷</div>
-          <div class="font-bold text-sm">TypeScript</div>
+        <div class="skill-badge bg-blue-50 border border-blue-200 text-blue-800 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">🔷</div>
+          <div class="font-bold text-xs sm:text-sm">TypeScript</div>
         </div>
-        <div class="skill-badge bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">🅰️</div>
-          <div class="font-bold text-sm">Angular</div>
+        <div class="skill-badge bg-red-50 border border-red-200 text-red-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">🅰️</div>
+          <div class="font-bold text-xs sm:text-sm">Angular</div>
         </div>
-
-        <!-- Backend -->
-        <div class="skill-badge bg-purple-50 border border-purple-200 text-purple-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">🔵</div>
-          <div class="font-bold text-sm">.NET</div>
+        <div class="skill-badge bg-purple-50 border border-purple-200 text-purple-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">🔵</div>
+          <div class="font-bold text-xs sm:text-sm">.NET</div>
         </div>
-        <div class="skill-badge bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">⚙️</div>
-          <div class="font-bold text-sm">C#</div>
+        <div class="skill-badge bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">⚙️</div>
+          <div class="font-bold text-xs sm:text-sm">C#</div>
         </div>
-
-        <!-- DevOps -->
-        <div class="skill-badge bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-4 py-3 text-center">
-          <div class="text-2xl mb-1">🐧</div>
-          <div class="font-bold text-sm">Linux Admin</div>
+        <div class="skill-badge bg-slate-50 border border-slate-200 text-slate-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center">
+          <div class="text-xl sm:text-2xl mb-1">🐧</div>
+          <div class="font-bold text-xs sm:text-sm">Linux Admin</div>
         </div>
 
       </div>
 
       <!-- Category labels -->
-      <div class="mt-6 flex flex-wrap gap-3">
-        <span class="text-xs font-semibold bg-orange-100 text-orange-600 px-3 py-1 rounded-full">Frontend: HTML · CSS · JS · TS · Angular</span>
-        <span class="text-xs font-semibold bg-purple-100 text-purple-600 px-3 py-1 rounded-full">Backend: .NET · C#</span>
-        <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-3 py-1 rounded-full">DevOps: Linux Administration</span>
+      <div class="mt-4 sm:mt-6 flex flex-wrap gap-2">
+        <span class="text-xs font-semibold bg-orange-100 text-orange-600 px-2.5 py-1 rounded-full">Frontend: HTML · CSS · JS · TS · Angular</span>
+        <span class="text-xs font-semibold bg-purple-100 text-purple-600 px-2.5 py-1 rounded-full">Backend: .NET · C#</span>
+        <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">DevOps: Linux</span>
       </div>
     </section>
 
     <!-- Two-column: Education + Military -->
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
 
       <!-- Education -->
-      <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-        <h2 class="text-2xl font-black text-primary-700 mb-5 flex items-center gap-2">
-          <span class="w-1.5 h-8 bg-primary-500 rounded-full inline-block"></span>
+      <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-black text-primary-700 mb-4 sm:mb-5 flex items-center gap-2">
+          <span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>
           التعليم
         </h2>
-        <div class="flex gap-4">
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center text-2xl">
+        <div class="flex gap-3 sm:gap-4">
+          <div class="shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary-100 flex items-center justify-center text-xl sm:text-2xl">
             🎓
           </div>
           <div>
-            <h3 class="font-black text-slate-800 text-lg leading-tight">ليسانس الحقوق</h3>
-            <p class="text-primary-600 font-semibold mt-0.5">جامعة الإسكندرية</p>
-            <p class="text-slate-500 text-sm mt-1">تخرج عام 2023</p>
+            <h3 class="font-black text-slate-800 text-base sm:text-lg leading-tight">ليسانس الحقوق</h3>
+            <p class="text-primary-600 font-semibold mt-0.5 text-sm sm:text-base">جامعة الإسكندرية</p>
+            <p class="text-slate-500 text-xs sm:text-sm mt-1">تخرج عام 2023</p>
           </div>
         </div>
       </section>
 
       <!-- Military -->
-      <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-        <h2 class="text-2xl font-black text-primary-700 mb-5 flex items-center gap-2">
-          <span class="w-1.5 h-8 bg-primary-500 rounded-full inline-block"></span>
+      <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-black text-primary-700 mb-4 sm:mb-5 flex items-center gap-2">
+          <span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>
           الخدمة العسكرية
         </h2>
-        <div class="flex gap-4">
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-2xl">
+        <div class="flex gap-3 sm:gap-4">
+          <div class="shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-green-100 flex items-center justify-center text-xl sm:text-2xl">
             🪖
           </div>
           <div>
-            <h3 class="font-black text-slate-800 text-lg leading-tight">ضابط احتياط</h3>
-            <p class="text-green-600 font-semibold mt-0.5 flex items-center gap-1.5">
-              <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+            <h3 class="font-black text-slate-800 text-base sm:text-lg leading-tight">ضابط احتياط</h3>
+            <p class="text-green-600 font-semibold mt-0.5 flex items-center gap-1.5 text-sm sm:text-base">
+              <span class="inline-block w-2 h-2 rounded-full bg-green-500 shrink-0"></span>
               أنهى الخدمة العسكرية
             </p>
           </div>
@@ -234,20 +218,20 @@
     </div>
 
     <!-- Languages -->
-    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-      <h2 class="text-2xl font-black text-primary-700 mb-6 flex items-center gap-2">
-        <span class="w-1.5 h-8 bg-primary-500 rounded-full inline-block"></span>
+    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8">
+      <h2 class="text-xl sm:text-2xl font-black text-primary-700 mb-4 sm:mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>
         اللغات
       </h2>
-      <div class="grid sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 
         <!-- Arabic -->
-        <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4 border border-slate-100">
-          <span class="text-3xl">🇪🇬</span>
-          <div class="flex-1">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-bold text-slate-800">العربية</span>
-              <span class="text-xs font-semibold bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full">اللغة الأم</span>
+        <div class="flex items-center gap-3 sm:gap-4 bg-slate-50 rounded-xl p-3 sm:p-4 border border-slate-100">
+          <span class="text-2xl sm:text-3xl shrink-0">🇪🇬</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-center mb-2 gap-2">
+              <span class="font-bold text-slate-800 text-sm sm:text-base">العربية</span>
+              <span class="text-xs font-semibold bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">اللغة الأم</span>
             </div>
             <div class="w-full bg-slate-200 rounded-full h-2">
               <div class="bg-primary-500 h-2 rounded-full" style="width:100%"></div>
@@ -256,12 +240,12 @@
         </div>
 
         <!-- English -->
-        <div class="flex items-center gap-4 bg-slate-50 rounded-xl p-4 border border-slate-100">
-          <span class="text-3xl">🇬🇧</span>
-          <div class="flex-1">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-bold text-slate-800">الإنجليزية</span>
-              <span class="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">B2 — متقدم</span>
+        <div class="flex items-center gap-3 sm:gap-4 bg-slate-50 rounded-xl p-3 sm:p-4 border border-slate-100">
+          <span class="text-2xl sm:text-3xl shrink-0">🇬🇧</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-center mb-2 gap-2">
+              <span class="font-bold text-slate-800 text-sm sm:text-base">الإنجليزية</span>
+              <span class="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">B2 — متقدم</span>
             </div>
             <div class="w-full bg-slate-200 rounded-full h-2">
               <div class="bg-blue-500 h-2 rounded-full" style="width:72%"></div>
@@ -273,26 +257,27 @@
     </section>
 
     <!-- Contact -->
-    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-      <h2 class="text-2xl font-black text-primary-700 mb-6 flex items-center gap-2">
-        <span class="w-1.5 h-8 bg-primary-500 rounded-full inline-block"></span>
+    <section class="section-card bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8">
+      <h2 class="text-xl sm:text-2xl font-black text-primary-700 mb-4 sm:mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>
         التواصل
       </h2>
-      <div class="grid sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 
-        <a href="tel:+201228086441" class="contact-link group bg-slate-50 hover:bg-primary-50 border border-slate-100 hover:border-primary-200 rounded-xl p-4 transition-colors">
-          <span class="text-2xl">📞</span>
-          <div>
+        <a href="tel:+201228086441"
+           class="flex items-center gap-3 bg-slate-50 hover:bg-primary-50 border border-slate-100 hover:border-primary-200 rounded-xl p-3 sm:p-4 transition-colors group">
+          <span class="text-xl sm:text-2xl shrink-0">📞</span>
+          <div class="min-w-0">
             <p class="text-xs text-slate-500 mb-0.5">الهاتف</p>
-            <p class="font-bold text-slate-800 group-hover:text-primary-700 transition-colors" dir="ltr">+201228086441</p>
+            <p class="font-bold text-slate-800 group-hover:text-primary-700 transition-colors text-sm sm:text-base truncate" dir="ltr">+201228086441</p>
           </div>
         </a>
 
-        <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-xl p-4">
-          <span class="text-2xl">📍</span>
+        <div class="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-xl p-3 sm:p-4">
+          <span class="text-xl sm:text-2xl shrink-0">📍</span>
           <div>
             <p class="text-xs text-slate-500 mb-0.5">العنوان</p>
-            <p class="font-bold text-slate-800">الإسكندرية، مصر</p>
+            <p class="font-bold text-slate-800 text-sm sm:text-base">الإسكندرية، مصر</p>
           </div>
         </div>
 
@@ -302,9 +287,9 @@
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="gradient-hero text-white mt-6">
-    <div class="max-w-4xl mx-auto px-6 py-8 text-center">
-      <p class="text-primary-200 text-sm">
+  <footer class="gradient-hero text-white mt-4 sm:mt-6">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 text-center">
+      <p class="text-primary-200 text-xs sm:text-sm">
         © 2025 محمود مجدي — Full Stack Developer
       </p>
       <p class="text-primary-300 text-xs mt-1">الإسكندرية، مصر</p>
