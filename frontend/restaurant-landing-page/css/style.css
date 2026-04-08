@@ -1,0 +1,7 @@
+/* Flavor Hub — Custom Styles */
+html { scroll-behavior: smooth; }
+#navbar.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08); }
+header { background-attachment: fixed; }
+.group:hover { transform: translateY(-4px); }
+input:focus, select:focus { box-shadow: 0 0 0 3px rgba(212, 128, 42, 0.15); }
+@media (max-width: 640px) { header { min-height: 90vh; } }
