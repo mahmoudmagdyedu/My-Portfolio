@@ -1,0 +1,33 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: $ secrets.HEROKU_API_KEY 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Create Heroku App (if not exists)
+        run: heroku apps:create my-portfolio-mahmoud --stack container || true
+
+      - name: Set Stack to Container
+        run: heroku stack:set container --app my-portfolio-mahmoud || true
+
+      - name: Login to Heroku Container Registry
+        run: heroku container:login
+
+      - name: Build and Push Docker Image
+        run: heroku container:push web --app my-portfolio-mahmoud
+
+      - name: Release
+        run: heroku container:release web --app my-portfolio-mahmoud
