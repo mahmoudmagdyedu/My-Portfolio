@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyPulse — Weather Dashboard</title>
+  <meta name="description" content="لوحة طقس تفاعلية — بحث عن أي مدينة، توقعات 5 أيام، مدن مفضلة، وضع داكن/فاتح" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { cairo: ['Cairo', 'sans-serif'] },
+          colors: {
+            primary: {
+              50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',
+              500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: 'Cairo', sans-serif; }
+    .gradient-hero { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%); }
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .anim-up { animation: fadeInUp .6s ease both; }
+    .delay-1 { animation-delay:.1s } .delay-2 { animation-delay:.2s } .delay-3 { animation-delay:.3s }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { animation: spin 1s linear infinite; }
+  </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen transition-colors">
+
+  <!-- Header -->
+  <header class="gradient-hero text-white">
+    <div class="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+      <div class="flex items-center justify-between mb-8">
+        <div class="anim-up">
+          <h1 class="text-3xl sm:text-4xl font-black tracking-tight flex items-center gap-2">🌤️ SkyPulse</h1>
+          <p class="text-primary-200 text-sm sm:text-base mt-1">لوحة الطقس التفاعلية — ابحث عن أي مدينة في العالم</p>
+        </div>
+        <button id="theme-toggle" onclick="toggleTheme()" class="anim-up delay-1 text-2xl bg-white/10 backdrop-blur hover:bg-white/20 border border-white/20 w-11 h-11 rounded-full flex items-center justify-center transition">🌙</button>
+      </div>
+
+      <!-- Search -->
+      <div id="search-container" class="anim-up delay-2 relative max-w-xl mx-auto">
+        <div class="flex items-center bg-white/10 backdrop-blur-md border border-white/25 rounded-2xl px-4 py-3 focus-within:border-primary-300 transition">
+          <span class="text-xl ml-3">🔍</span>
+          <input id="search-input" type="text" placeholder="ابحث عن مدينة..." autocomplete="off"
+            class="flex-1 bg-transparent text-white placeholder-primary-200 outline-none text-lg font-medium" />
+        </div>
+        <div id="search-dropdown" class="hidden absolute z-50 top-full mt-2 w-full bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden max-h-72 overflow-y-auto"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-5xl mx-auto px-4 py-8 sm:py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+      <!-- Favorites Sidebar -->
+      <aside class="lg:col-span-1 order-2 lg:order-1">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-5">
+          <h3 class="font-black text-lg text-primary-600 dark:text-primary-400 mb-4 flex items-center gap-2">⭐ المدن المفضلة</h3>
+          <div id="favorites-list" class="space-y-2"></div>
+        </div>
+      </aside>
+
+      <!-- Weather Content -->
+      <div class="lg:col-span-3 order-1 lg:order-2 space-y-6">
+
+        <!-- Loader -->
+        <div id="loader" class="hidden text-center py-12">
+          <div class="inline-block w-10 h-10 border-4 border-primary-200 border-t-primary-600 rounded-full spinner"></div>
+          <p class="mt-3 text-slate-500 dark:text-slate-400 font-medium">جاري تحميل بيانات الطقس...</p>
+        </div>
+
+        <div id="weather-result" class="hidden space-y-6">
+          <!-- Current Weather -->
+          <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
+            <div id="current-weather"></div>
+          </section>
+
+          <!-- Forecast -->
+          <section>
+            <h3 class="font-black text-xl text-slate-700 dark:text-slate-200 mb-4 flex items-center gap-2">📅 توقعات الأيام القادمة</h3>
+            <div id="forecast-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="gradient-hero text-white mt-8">
+    <div class="max-w-5xl mx-auto px-4 py-6 text-center">
+      <p class="text-primary-200 text-sm">© 2026 SkyPulse — صُنع بـ ❤️ بواسطة <a href="/" class="underline hover:text-white">محمود مجدي</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
