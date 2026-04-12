@@ -86,6 +86,24 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Redirect /favicon.ico to actual location
+  if (url === '/favicon.ico') {
+    const faviconPath = path.join(__dirname, 'assets', 'icons', 'favicon.ico');
+    fs.readFile(faviconPath, (err, content) => {
+      if (err) {
+        res.writeHead(404);
+        res.end();
+      } else {
+        res.writeHead(200, {
+          'Content-Type': 'image/x-icon',
+          'Cache-Control': 'public, max-age=31536000, immutable'
+        });
+        res.end(content);
+      }
+    });
+    return;
+  }
+
   let filePath = path.join(__dirname, url);
 
   fs.stat(filePath, (err, stats) => {
