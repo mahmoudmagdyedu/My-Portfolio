@@ -15,10 +15,60 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
   <link rel="dns-prefetch" href="https://images.unsplash.com" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet" />
+  <!-- Async CSS: styles.css loaded non-render-blocking -->
+  <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/styles.css" /></noscript>
+  <!-- Async Google Fonts: loaded non-render-blocking -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" /></noscript>
   <style>
-    body { font-family: 'Cairo', sans-serif; }
+    /* Critical CSS inlined for above-the-fold content */
+    /* Font fallback with metrics to prevent CLS */
+    @font-face {
+      font-family: 'Cairo Fallback';
+      src: local('Arial');
+      ascent-override: 102%;
+      descent-override: 42%;
+      line-gap-override: 0%;
+      size-adjust: 97%;
+    }
+    body { font-family: 'Cairo', 'Cairo Fallback', sans-serif; margin: 0; }
+    /* Tailwind critical utilities */
+    .bg-slate-50 { background-color: #f8fafc; }
+    .text-slate-800 { color: #1e293b; }
+    .text-white { color: #fff; }
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-5 { margin-bottom: 1.25rem; }
+    .mt-7 { margin-top: 1.75rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+    .max-w-4xl { max-width: 56rem; }
+    .rounded-full { border-radius: 9999px; }
+    .border-4 { border-width: 4px; }
+    .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,.25); }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1); }
+    .inline-flex { display: inline-flex; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .gap-1\.5 { gap: 0.375rem; }
+    .gap-2 { gap: 0.5rem; }
+    .font-black { font-weight: 900; }
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
+    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-xs { font-size: .75rem; line-height: 1rem; }
+    .text-base { font-size: 1rem; line-height: 1.5rem; }
+    .tracking-tight { letter-spacing: -.025em; }
+    .whitespace-nowrap { white-space: nowrap; }
+    .select-none { user-select: none; }
+    .object-cover { object-fit: cover; }
+    .w-24 { width: 6rem; }
+    .h-24 { height: 6rem; }
     .gradient-hero { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%); }
     .skill-badge { transition: transform 0.2s, box-shadow 0.2s; }
     .skill-badge:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(99,102,241,0.35); }
@@ -33,6 +83,24 @@
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fade-in-up { animation: fadeInUp 0.7s ease both; }
     .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
+    /* Responsive critical */
+    @media (min-width:640px) {
+      .sm\:px-6 { padding-left:1.5rem; padding-right:1.5rem; }
+      .sm\:py-20 { padding-top:5rem; padding-bottom:5rem; }
+      .sm\:w-32 { width:8rem; }
+      .sm\:h-32 { height:8rem; }
+      .sm\:text-4xl { font-size:2.25rem; line-height:2.5rem; }
+      .sm\:text-xl { font-size:1.25rem; line-height:1.75rem; }
+      .sm\:px-4 { padding-left:1rem; padding-right:1rem; }
+      .sm\:text-sm { font-size:.875rem; line-height:1.25rem; }
+      .sm\:px-8 { padding-left:2rem; padding-right:2rem; }
+      .sm\:py-3 { padding-top:.75rem; padding-bottom:.75rem; }
+      .sm\:text-lg { font-size:1.125rem; line-height:1.75rem; }
+    }
+    @media (min-width:768px) {
+      .md\:text-5xl { font-size:3rem; line-height:1; }
+      .md\:text-2xl { font-size:1.5rem; line-height:2rem; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -86,7 +154,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=400&q=60&fm=webp" alt="ContactHub" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=400&q=40&fm=webp" alt="ContactHub" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/contact-manager-app/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع ContactHub">عرض مباشر</a>
@@ -99,7 +167,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?w=400&q=60&fm=webp" alt="SkyPulse" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1592210454359-9043f067919b?w=400&q=40&fm=webp" alt="SkyPulse" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/weather-dashboard-app/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع SkyPulse">عرض مباشر</a>
@@ -112,7 +180,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=400&q=60&fm=webp" alt="BrainBuzz" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=400&q=40&fm=webp" alt="BrainBuzz" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/quiz-app/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع BrainBuzz">عرض مباشر</a>
@@ -125,7 +193,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&q=60&fm=webp" alt="TaskFlow" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&q=40&fm=webp" alt="TaskFlow" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/task-board-app/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع TaskFlow">عرض مباشر</a>
@@ -138,7 +206,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=60&fm=webp" alt="WanderVoyage" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=40&fm=webp" alt="WanderVoyage" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/travel-booking-landing-page/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع WanderVoyage">عرض مباشر</a>
@@ -151,7 +219,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=400&q=60&fm=webp" alt="EduVerse" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=400&q=40&fm=webp" alt="EduVerse" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/e-learning-landing-page/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع EduVerse">عرض مباشر</a>
@@ -164,7 +232,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=60&fm=webp" alt="FitZone" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=40&fm=webp" alt="FitZone" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/fitness-gym-landing-page/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع FitZone">عرض مباشر</a>
@@ -177,7 +245,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=60&fm=webp" alt="NexaTech" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=40&fm=webp" alt="NexaTech" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/tech-agency-landing-page/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع NexaTech">عرض مباشر</a>
@@ -190,7 +258,7 @@
 
         <div class="project-card bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
           <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=60&fm=webp" alt="Flavor Hub" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=40&fm=webp" alt="Flavor Hub" class="project-img w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="267" />
             <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-5">
               <div class="flex gap-2">
                 <a href="/frontend/restaurant-landing-page/" class="inline-flex items-center gap-1.5 bg-white text-slate-800 font-bold text-xs px-4 py-2 rounded-full hover:bg-primary-50 transition shadow-lg" aria-label="عرض مباشر لمشروع Flavor Hub">عرض مباشر</a>
