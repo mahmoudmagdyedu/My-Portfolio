@@ -1,0 +1,6 @@
+Screenshots will be added here after the app is running.
+
+Placeholder files:
+- screenshot-list.png
+- screenshot-detail.png
+- screenshot-form.png
