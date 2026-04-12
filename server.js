@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,15 +30,50 @@ const mimeTypes = {
   '.map': 'application/json',
 };
 
-function serveFile(filePath, res) {
-  fs.readFile(filePath, (err, content) => {
-    if (err) return null;
-    const ext = path.extname(filePath).toLowerCase();
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-    res.writeHead(200, { 'Content-Type': contentType });
+// Extensions that benefit from gzip compression
+const compressible = new Set(['.html', '.css', '.js', '.json', '.svg', '.xml', '.txt', '.map']);
+
+// Cache durations
+function getCacheHeader(ext) {
+  // Static assets: cache for 1 year
+  if (['.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webp', '.woff', '.woff2', '.ttf', '.eot', '.otf'].includes(ext)) {
+    return 'public, max-age=31536000, immutable';
+  }
+  // HTML: cache for 1 hour, revalidate
+  if (ext === '.html') {
+    return 'public, max-age=3600, must-revalidate';
+  }
+  return 'public, max-age=86400';
+}
+
+function sendResponse(req, res, statusCode, contentType, content, ext) {
+  const headers = { 'Content-Type': contentType };
+
+  // Add cache headers
+  if (ext) {
+    headers['Cache-Control'] = getCacheHeader(ext);
+  }
+
+  // Check if client accepts gzip and content is compressible
+  const acceptEncoding = req.headers['accept-encoding'] || '';
+  const shouldCompress = ext && compressible.has(ext) && acceptEncoding.includes('gzip') && content.length > 1024;
+
+  if (shouldCompress) {
+    zlib.gzip(content, (err, compressed) => {
+      if (err) {
+        res.writeHead(statusCode, headers);
+        res.end(content);
+      } else {
+        headers['Content-Encoding'] = 'gzip';
+        headers['Vary'] = 'Accept-Encoding';
+        res.writeHead(statusCode, headers);
+        res.end(compressed);
+      }
+    });
+  } else {
+    res.writeHead(statusCode, headers);
     res.end(content);
-    return true;
-  });
+  }
 }
 
 const server = http.createServer((req, res) => {
@@ -62,8 +98,7 @@ const server = http.createServer((req, res) => {
           res.writeHead(500);
           res.end('Internal Server Error');
         } else {
-          res.writeHead(200, { 'Content-Type': contentType });
-          res.end(content);
+          sendResponse(req, res, 200, contentType, content, ext);
         }
       });
     } else if (!err && stats.isDirectory()) {
@@ -81,8 +116,7 @@ const server = http.createServer((req, res) => {
                 const dirs = entries.filter(e => e.isDirectory()).map(e => e.name);
                 const category = url.replace(/\//g, '');
                 const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${category} Projects</title><style>body{font-family:system-ui;max-width:800px;margin:2rem auto;padding:0 1rem}a{display:block;padding:0.5rem 0;font-size:1.2rem}</style></head><body><h1>${category} Projects</h1>${dirs.map(d => `<a href="${url.endsWith('/') ? url : url + '/'}${d}/">${d}</a>`).join('')}<br><a href="/">&larr; Back to Portfolio</a></body></html>`;
-                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-                res.end(html);
+                sendResponse(req, res, 200, 'text/html; charset=utf-8', Buffer.from(html), '.html');
               }
             });
           } else {
@@ -95,8 +129,7 @@ const server = http.createServer((req, res) => {
             res.writeHead(301, { 'Location': url + '/' });
             res.end();
           } else {
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-            res.end(content);
+            sendResponse(req, res, 200, 'text/html; charset=utf-8', content, '.html');
           }
         }
       });
