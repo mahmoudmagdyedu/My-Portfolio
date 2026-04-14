@@ -1,6 +1,5 @@
 // ===== Movie Search App =====
-// Replace with your own OMDB API key: https://www.omdbapi.com/apikey.aspx
-const API_KEY = 'YOUR_API_KEY';
+const API_KEY = '1f39da44-ef72-4170-95b2-710a84fefa64';
 const BASE_URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
 
 // --- DOM Elements ---
@@ -82,11 +81,11 @@ function renderMovies(movies, container) {
         <p class="card__year">${movie.Year}</p>
       </div>
       <button class="card__fav-btn ${isFav ? 'saved' : ''}" data-id="${movie.imdbID}" title="Toggle favorite">
-        ${isFav ? '★' : '☆'}
+        ${isFav ? '\u2605' : '\u2606'}
       </button>
     `;
 
-    // Card click → show detail
+    // Card click -> show detail
     card.querySelector('.card__poster').addEventListener('click', () => showDetail(movie.imdbID));
     card.querySelector('.card__info').addEventListener('click', () => showDetail(movie.imdbID));
 
@@ -121,7 +120,7 @@ async function showDetail(imdbID) {
           <div class="detail__info">
             <h2 class="detail__title">${movie.Title}</h2>
             <p class="detail__meta">${movie.Year} &bull; ${movie.Runtime} &bull; ${movie.Genre}</p>
-            ${movie.imdbRating !== 'N/A' ? `<span class="detail__rating">⭐ ${movie.imdbRating}/10</span>` : ''}
+            ${movie.imdbRating !== 'N/A' ? `<span class="detail__rating">\u2b50 ${movie.imdbRating}/10</span>` : ''}
             <p class="detail__plot">${movie.Plot}</p>
             <p class="detail__label"><strong>Director:</strong> ${movie.Director}</p>
             <p class="detail__label"><strong>Actors:</strong> ${movie.Actors}</p>
