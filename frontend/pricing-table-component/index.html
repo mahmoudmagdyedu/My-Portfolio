@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing Table Component</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="pricing-section">
+    <h1>Choose Your Plan</h1>
+    <p class="subtitle">Simple, transparent pricing for everyone.</p>
+
+    <div class="billing-toggle" role="group" aria-label="Billing period">
+      <button id="btn-monthly" class="toggle-btn active" aria-pressed="true">Monthly</button>
+      <button id="btn-yearly" class="toggle-btn" aria-pressed="false">Yearly <span class="badge">Save 20%</span></button>
+    </div>
+
+    <div class="pricing-grid" id="pricing-grid">
+      <!-- Cards rendered by TypeScript -->
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
