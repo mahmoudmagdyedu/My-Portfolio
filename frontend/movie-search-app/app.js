@@ -1,5 +1,5 @@
 // ===== Movie Search App =====
-const API_KEY = '1f39da44-ef72-4170-95b2-710a84fefa64';
+const API_KEY = 'e204809a';
 const BASE_URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
 
 // --- DOM Elements ---
@@ -93,7 +93,6 @@ function renderMovies(movies, container) {
     card.querySelector('.card__fav-btn').addEventListener('click', (e) => {
       e.stopPropagation();
       toggleFavorite(movie);
-      // Re-render current view
       renderMovies(movies, container);
     });
 
