@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Search App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header__brand">
+      <span class="header__icon">🎬</span>
+      <h1 class="header__title">Movie Search</h1>
+    </div>
+    <nav class="header__nav">
+      <button class="nav-btn active" id="btn-search">Search</button>
+      <button class="nav-btn" id="btn-favorites">★ Favorites <span class="badge" id="fav-count">0</span></button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="search-section">
+      <div class="search-box">
+        <input
+          type="text"
+          id="search-input"
+          class="search-box__input"
+          placeholder="Search for a movie..."
+          autocomplete="off"
+        />
+        <button class="search-box__btn" id="search-btn">Search</button>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <!-- Movie cards will be injected here -->
+    </section>
+
+    <section class="favorites hidden" id="favorites-section">
+      <h2 class="section-title">Your Favorites</h2>
+      <div class="results" id="favorites-list"></div>
+    </section>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal-overlay hidden" id="modal-overlay">
+      <div class="modal" id="modal">
+        <button class="modal__close" id="modal-close">&times;</button>
+        <div class="modal__content" id="modal-content">
+          <!-- Detail content injected here -->
+        </div>
+      </div>
+    </div>
+
+    <div class="loader hidden" id="loader">
+      <div class="spinner"></div>
+    </div>
+
+    <p class="message hidden" id="message"></p>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Mahmoud Magdy &mdash; Movie Search App</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
