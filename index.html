@@ -42,24 +42,30 @@
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fade-in-up { animation: fadeInUp 0.7s ease both; }
     .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
+    .dark-toggle{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:8px 18px;border-radius:9999px;font-size:.8rem;font-weight:700;border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;transition:background .2s,transform .2s}
+    .dark-toggle:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors">
 
   <header class="gradient-hero text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-20 text-center relative">
-      <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="absolute top-4 left-4 sm:top-6 sm:left-6 bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-bold border border-white/20 transition" aria-label="تبديل الوضع">🌙 Dark Mode</button>
-      <img src="assets/photo.jpg" alt="محمود مجدي" width="128" height="128" fetchpriority="high" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white/30 shadow-2xl" onerror="this.style.display='none';document.getElementById('avatar-fallback').style.display='flex'" />
-      <div id="avatar-fallback" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary-400 items-center justify-center text-4xl sm:text-5xl font-black border-4 border-white/30 shadow-2xl select-none" style="display:none">م</div>
-      <h1 class="animate-fade-in-up delay-100 text-3xl sm:text-4xl md:text-5xl font-black mb-2 tracking-tight">محمود مجدي</h1>
-      <p class="animate-fade-in-up delay-200 text-primary-200 text-lg sm:text-xl md:text-2xl font-semibold mb-5">Full Stack Developer</p>
-      <div class="animate-fade-in-up delay-300 flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
-        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">📍 الإسكندرية، مصر</span>
-        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">🎂 25 سنة</span>
-        <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">ضابط احتياط</span>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="flex justify-start pt-4 sm:pt-6">
+        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="dark-toggle" aria-label="تبديل الوضع">🌙 <span>الوضع الداكن</span></button>
       </div>
-      <div class="animate-fade-in-up delay-400 mt-7">
-        <a href="mailto:mahmoudmagdy@mail.com" class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full shadow-lg hover:bg-primary-50 transition-colors text-base sm:text-lg">✉️ تواصل الآن</a>
+      <div class="text-center pb-12 sm:pb-20 pt-6 sm:pt-10">
+        <img src="assets/photo.jpg" alt="محمود مجدي" width="128" height="128" fetchpriority="high" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white/30 shadow-2xl" onerror="this.style.display='none';document.getElementById('avatar-fallback').style.display='flex'" />
+        <div id="avatar-fallback" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary-400 items-center justify-center text-4xl sm:text-5xl font-black border-4 border-white/30 shadow-2xl select-none" style="display:none">م</div>
+        <h1 class="animate-fade-in-up delay-100 text-3xl sm:text-4xl md:text-5xl font-black mb-2 tracking-tight">محمود مجدي</h1>
+        <p class="animate-fade-in-up delay-200 text-primary-200 text-lg sm:text-xl md:text-2xl font-semibold mb-5">Full Stack Developer</p>
+        <div class="animate-fade-in-up delay-300 flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
+          <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">📍 الإسكندرية، مصر</span>
+          <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">🎂 25 سنة</span>
+          <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">ضابط احتياط</span>
+        </div>
+        <div class="animate-fade-in-up delay-400 mt-7">
+          <a href="mailto:mahmoudmagdy@mail.com" class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full shadow-lg hover:bg-primary-50 transition-colors text-base sm:text-lg">✉️ تواصل الآن</a>
+        </div>
       </div>
     </div>
   </header>
