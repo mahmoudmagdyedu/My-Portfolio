@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Backend Projects | محمود مجدي</title>
+  <meta name="theme-color" content="#312e81"/>
+  <link rel="shortcut icon" href="/assets/icons/favicon.ico"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap"/></noscript>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{cairo:['Cairo','sans-serif']},colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}}}}}</script>
+  <style>
+    @font-face{font-family:'Cairo Fallback';src:local('Arial');ascent-override:102%;descent-override:42%;line-gap-override:0%;size-adjust:97%}
+    body{font-family:'Cairo','Cairo Fallback',sans-serif}
+    .gradient-hero{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4338ca 100%)}
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors">
+  <header class="gradient-hero text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+      <div class="flex items-center justify-between mb-4">
+        <a href="/" class="text-primary-200 hover:text-white text-sm font-semibold transition-colors">← البورتفوليو</a>
+        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-bold border border-white/20 transition">🌙 Dark Mode</button>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-black tracking-tight">⚙️ مشاريع Backend</h1>
+      <p class="text-primary-200 text-base sm:text-lg font-semibold mt-1">.NET Web API · C# · EF Core · SQL Server</p>
+      <nav class="mt-4 flex gap-2 overflow-x-auto text-xs font-bold">
+        <a href="/frontend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">🎨 Frontend</a>
+        <span class="bg-white/25 px-3 py-1.5 rounded-full border border-white/30 whitespace-nowrap">⚙️ Backend</span>
+        <a href="/fullstack/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">🔗 Full Stack</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-purple-100 dark:bg-purple-900/30 mb-6"><span class="text-5xl">⚙️</span></div>
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white mb-3">مشاريع Backend قادمة قريبًا</h2>
+      <p class="text-slate-500 dark:text-slate-400 text-lg mb-8 max-w-lg mx-auto">أعمل حاليًا على بناء مشاريع Backend احترافية باستخدام أحدث التقنيات</p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto mb-12">
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">🟣</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">.NET 8</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">🟦</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">C#</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">🔐</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">JWT Auth</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">🗄️</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">SQL Server</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">📦</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">EF Core</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">📗</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">Swagger</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">🐧</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">Linux</div></div>
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm text-center"><div class="text-2xl mb-1">🚀</div><div class="font-bold text-sm text-slate-700 dark:text-slate-300">Docker</div></div>
+      </div>
+      <a href="/" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff;font-weight:700;padding:12px 28px;border-radius:9999px;box-shadow:0 8px 24px rgba(99,102,241,.3);font-size:.95rem;text-decoration:none">← العودة للبورتفوليو</a>
+    </div>
+  </main>
+  <footer class="gradient-hero text-white mt-6"><div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 text-center"><p class="text-primary-200 text-xs sm:text-sm">© 2025 محمود مجدي — Full Stack Developer</p></div></footer>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
+</body>
+</html>
