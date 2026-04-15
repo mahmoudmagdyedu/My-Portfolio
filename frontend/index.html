@@ -22,22 +22,27 @@
     .project-img{transition:transform .5s}
     .project-overlay{opacity:0;transition:opacity .3s}
     .card-hide{display:none !important}
+    .dark-toggle{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:8px 18px;border-radius:9999px;font-size:.8rem;font-weight:700;border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;transition:background .2s,transform .2s}
+    .dark-toggle:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
   </style>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors">
   <header class="gradient-hero text-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
-      <div class="flex items-center justify-between mb-4">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between pt-4 sm:pt-6">
         <a href="/" class="text-primary-200 hover:text-white text-sm font-semibold transition-colors">← البورتفوليو</a>
-        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-bold border border-white/20 transition">🌙 Dark Mode</button>
+        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="dark-toggle">🌙 <span>الوضع الداكن</span></button>
       </div>
-      <h1 class="text-3xl sm:text-4xl font-black tracking-tight">🎨 مشاريع Frontend</h1>
-      <p class="text-primary-200 text-base sm:text-lg font-semibold mt-1">HTML · CSS · JavaScript · TypeScript · Angular</p>
-      <nav class="mt-4 flex gap-2 overflow-x-auto text-xs font-bold">
-        <span class="bg-white/25 px-3 py-1.5 rounded-full border border-white/30 whitespace-nowrap">🎨 Frontend</span>
-        <a href="/backend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">⚙️ Backend</a>
-        <a href="/fullstack/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">🔗 Full Stack</a>
-      </nav>
+      <div class="py-6 sm:py-10 text-center">
+        <h1 class="text-3xl sm:text-4xl font-black tracking-tight">🎨 مشاريع Frontend</h1>
+        <p class="text-primary-200 text-base sm:text-lg font-semibold mt-1">HTML · CSS · JavaScript · TypeScript · Angular</p>
+        <nav class="mt-4 flex justify-center gap-2 overflow-x-auto text-xs font-bold">
+          <span class="bg-white/25 px-3 py-1.5 rounded-full border border-white/30 whitespace-nowrap">🎨 Frontend</span>
+          <a href="/backend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">⚙️ Backend</a>
+          <a href="/fullstack/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">🔗 Full Stack</a>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -85,7 +90,6 @@
 
   <footer class="gradient-hero text-white mt-6"><div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 text-center"><p class="text-primary-200 text-xs sm:text-sm">© 2025 محمود مجدي — Full Stack Developer</p></div></footer>
   <script>
-  if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');
   var skillNames={html:'HTML',css:'CSS',javascript:'JavaScript',typescript:'TypeScript',angular:'Angular',tailwind:'Tailwind'};
   function clearSkill(){history.replaceState(null,'',location.pathname);document.getElementById('skill-bar').classList.add('hidden');document.getElementById('no-results').classList.add('hidden');document.querySelectorAll('.project-card').forEach(function(c){c.classList.remove('card-hide')});document.querySelectorAll('.section-heading').forEach(function(s){s.style.display=''})}
   (function(){

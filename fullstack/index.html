@@ -13,22 +13,27 @@
     @font-face{font-family:'Cairo Fallback';src:local('Arial');ascent-override:102%;descent-override:42%;line-gap-override:0%;size-adjust:97%}
     body{font-family:'Cairo','Cairo Fallback',sans-serif}
     .gradient-hero{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4338ca 100%)}
+    .dark-toggle{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:8px 18px;border-radius:9999px;font-size:.8rem;font-weight:700;border:1px solid rgba(255,255,255,.2);color:#fff;cursor:pointer;transition:background .2s,transform .2s}
+    .dark-toggle:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
   </style>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors">
   <header class="gradient-hero text-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
-      <div class="flex items-center justify-between mb-4">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between pt-4 sm:pt-6">
         <a href="/" class="text-primary-200 hover:text-white text-sm font-semibold transition-colors">← البورتفوليو</a>
-        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full text-xs font-bold border border-white/20 transition">🌙 Dark Mode</button>
+        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="dark-toggle">🌙 <span>الوضع الداكن</span></button>
       </div>
-      <h1 class="text-3xl sm:text-4xl font-black tracking-tight">🔗 مشاريع Full Stack</h1>
-      <p class="text-primary-200 text-base sm:text-lg font-semibold mt-1">Angular + .NET + SQL Server · CI/CD</p>
-      <nav class="mt-4 flex gap-2 overflow-x-auto text-xs font-bold">
-        <a href="/frontend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">🎨 Frontend</a>
-        <a href="/backend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">⚙️ Backend</a>
-        <span class="bg-white/25 px-3 py-1.5 rounded-full border border-white/30 whitespace-nowrap">🔗 Full Stack</span>
-      </nav>
+      <div class="py-6 sm:py-10 text-center">
+        <h1 class="text-3xl sm:text-4xl font-black tracking-tight">🔗 مشاريع Full Stack</h1>
+        <p class="text-primary-200 text-base sm:text-lg font-semibold mt-1">Angular + .NET + SQL Server · CI/CD</p>
+        <nav class="mt-4 flex justify-center gap-2 overflow-x-auto text-xs font-bold">
+          <a href="/frontend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">🎨 Frontend</a>
+          <a href="/backend/" class="bg-white/10 hover:bg-white/20 backdrop-blur px-3 py-1.5 rounded-full border border-white/20 transition whitespace-nowrap">⚙️ Backend</a>
+          <span class="bg-white/25 px-3 py-1.5 rounded-full border border-white/30 whitespace-nowrap">🔗 Full Stack</span>
+        </nav>
+      </div>
     </div>
   </header>
   <main class="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
@@ -46,6 +51,5 @@
     </div>
   </main>
   <footer class="gradient-hero text-white mt-6"><div class="max-w-5xl mx-auto px-4 sm:px-6 py-6 text-center"><p class="text-primary-200 text-xs sm:text-sm">© 2025 محمود مجدي — Full Stack Developer</p></div></footer>
-  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')</script>
 </body>
 </html>
