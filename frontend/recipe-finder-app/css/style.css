@@ -114,6 +114,7 @@ a { color: var(--clr-primary); text-decoration: none; }
 
 /* ===== Modal ===== */
 .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
+.modal[hidden] { display: none !important; }
 .modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.55); }
 .modal__content {
   position: relative; background: var(--clr-surface); border-radius: var(--radius);
