@@ -39,9 +39,9 @@ function getCacheHeader(ext) {
   if (['.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webp', '.woff', '.woff2', '.ttf', '.eot', '.otf'].includes(ext)) {
     return 'public, max-age=31536000, immutable';
   }
-  // HTML: cache for 1 hour, revalidate
+  // HTML: no cache - always serve fresh content
   if (ext === '.html') {
-    return 'public, max-age=3600, must-revalidate';
+    return 'no-cache, no-store, must-revalidate';
   }
   return 'public, max-age=86400';
 }
