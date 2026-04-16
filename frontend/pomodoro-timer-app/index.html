@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <h1 class="app__title">🍅 Pomodoro Timer</h1>
+
+    <!-- Mode Tabs -->
+    <div class="tabs">
+      <button class="tab tab--active" data-mode="pomodoro">Pomodoro</button>
+      <button class="tab" data-mode="shortBreak">Short Break</button>
+      <button class="tab" data-mode="longBreak">Long Break</button>
+    </div>
+
+    <!-- Timer Display -->
+    <div class="timer">
+      <svg class="timer__svg" viewBox="0 0 200 200">
+        <circle class="timer__circle-bg" cx="100" cy="100" r="90" />
+        <circle class="timer__circle-progress" cx="100" cy="100" r="90" />
+      </svg>
+      <span class="timer__display" id="display">25:00</span>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn btn--primary" id="startPause">Start</button>
+      <button class="btn btn--secondary" id="reset">Reset</button>
+    </div>
+
+    <!-- Session Counter -->
+    <p class="sessions" id="sessions">Completed: <strong>0</strong> pomodoros</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

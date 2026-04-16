@@ -1,0 +1,187 @@
+/* === Variables === */
+:root {
+  --clr-bg: #1a1a2e;
+  --clr-surface: #16213e;
+  --clr-primary: #e94560;
+  --clr-primary-light: #ff6b81;
+  --clr-text: #eaeaea;
+  --clr-text-muted: #a0a0b0;
+  --clr-short-break: #38b000;
+  --clr-long-break: #4361ee;
+  --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --timer-size: 240px;
+}
+
+/* === Reset === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* === App Container === */
+.app {
+  text-align: center;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+}
+
+.app__title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+/* === Tabs === */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.tab {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--clr-surface);
+  color: var(--clr-text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.tab:hover {
+  color: var(--clr-text);
+}
+
+.tab--active {
+  background: var(--clr-primary);
+  color: #fff;
+}
+
+.tab--active[data-mode='shortBreak'] {
+  background: var(--clr-short-break);
+}
+
+.tab--active[data-mode='longBreak'] {
+  background: var(--clr-long-break);
+}
+
+/* === Timer === */
+.timer {
+  position: relative;
+  width: var(--timer-size);
+  height: var(--timer-size);
+  margin: 0 auto 2rem;
+}
+
+.timer__svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer__circle-bg {
+  fill: none;
+  stroke: var(--clr-surface);
+  stroke-width: 8;
+}
+
+.timer__circle-progress {
+  fill: none;
+  stroke: var(--clr-primary);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 565.48;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.5s linear, stroke 0.3s;
+}
+
+.timer__display {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* === Controls === */
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn--primary {
+  background: var(--clr-primary);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(233, 69, 96, 0.4);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+}
+
+.btn--secondary {
+  background: var(--clr-surface);
+  color: var(--clr-text-muted);
+}
+
+.btn--secondary:hover {
+  color: var(--clr-text);
+}
+
+/* === Sessions === */
+.sessions {
+  color: var(--clr-text-muted);
+  font-size: 0.95rem;
+}
+
+.sessions strong {
+  color: var(--clr-primary-light);
+}
+
+/* === Responsive === */
+@media (max-width: 480px) {
+  :root {
+    --timer-size: 200px;
+  }
+  .app__title {
+    font-size: 1.4rem;
+  }
+  .timer__display {
+    font-size: 2.4rem;
+  }
+}
