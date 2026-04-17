@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__left">
+        <h1 class="header__title">🎯 Habit Tracker</h1>
+        <p class="header__subtitle" id="dateDisplay"></p>
+      </div>
+      <div class="header__right">
+        <div class="progress-ring" id="progressRing">
+          <svg viewBox="0 0 60 60">
+            <circle class="progress-ring__bg" cx="30" cy="30" r="26" />
+            <circle class="progress-ring__fill" cx="30" cy="30" r="26" id="progressCircle" />
+          </svg>
+          <span class="progress-ring__text" id="progressText">0%</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Add Habit Form -->
+    <section class="add-habit">
+      <form id="habitForm" class="add-habit__form">
+        <div class="add-habit__input-group">
+          <input
+            type="text"
+            id="habitName"
+            class="add-habit__input"
+            placeholder="New habit name..."
+            maxlength="50"
+            required
+          />
+          <input
+            type="text"
+            id="habitIcon"
+            class="add-habit__icon-input"
+            placeholder="😀"
+            maxlength="2"
+          />
+        </div>
+        <div class="add-habit__row">
+          <select id="habitCategory" class="add-habit__select">
+            <option value="health">💪 Health</option>
+            <option value="productivity">⚡ Productivity</option>
+            <option value="learning">📚 Learning</option>
+            <option value="personal">🌟 Personal</option>
+          </select>
+          <button type="submit" class="add-habit__btn">+ Add Habit</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+      <button class="filters__btn filters__btn--active" data-filter="all">All</button>
+      <button class="filters__btn" data-filter="health">💪 Health</button>
+      <button class="filters__btn" data-filter="productivity">⚡ Productivity</button>
+      <button class="filters__btn" data-filter="learning">📚 Learning</button>
+      <button class="filters__btn" data-filter="personal">🌟 Personal</button>
+    </section>
+
+    <!-- Habit List -->
+    <section class="habits" id="habitList">
+      <p class="habits__empty" id="emptyState">No habits yet. Add your first habit above! 🚀</p>
+    </section>
+  </div>
+
+  <script src="js/app.js" type="module"></script>
+</body>
+</html>
