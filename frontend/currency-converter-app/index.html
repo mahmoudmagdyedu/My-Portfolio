@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Converter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>💱 Currency Converter</h1>
+      <p class="subtitle">Real-time exchange rates at your fingertips</p>
+    </header>
+
+    <main class="converter-card">
+      <div class="input-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" value="1" min="0" step="any" />
+      </div>
+
+      <div class="currency-row">
+        <div class="select-group">
+          <label for="fromCurrency">From</label>
+          <select id="fromCurrency"></select>
+        </div>
+
+        <button id="swapBtn" class="swap-btn" title="Swap currencies">
+          ⇄
+        </button>
+
+        <div class="select-group">
+          <label for="toCurrency">To</label>
+          <select id="toCurrency"></select>
+        </div>
+      </div>
+
+      <button id="convertBtn" class="convert-btn">Convert</button>
+
+      <div id="result" class="result hidden">
+        <span id="resultText"></span>
+      </div>
+
+      <div id="rateInfo" class="rate-info hidden">
+        <span id="rateText"></span>
+        <span id="lastUpdated"></span>
+      </div>
+    </main>
+
+    <section class="history-section">
+      <h2>Conversion History</h2>
+      <ul id="historyList" class="history-list">
+        <li class="empty-state">No conversions yet</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Built with TypeScript &bull; <a href="https://github.com/mahmoudmagdyedu/My-Portfolio" target="_blank">Source Code</a></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
