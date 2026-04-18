@@ -56,8 +56,6 @@ const POPULAR_CURRENCIES: Currency[] = [
   { code: 'BHD', name: 'Bahraini Dinar' },
 ];
 
-const API_BASE = 'https://open.er-api.com/v6/latest';
-
 // ===== State =====
 
 let conversionHistory: ConversionResult[] = [];
@@ -100,7 +98,29 @@ async function fetchRates(base: string): Promise<Record<string, number>> {
     return ratesCache[base].rates;
   }
 
-  const response = await fetch(`${API_BASE}/${base}`);
+  // Primary API: fawazahmed0 currency-api (Cloudflare Pages CDN, no rate limit)
+  try {
+    const primaryRes = await fetch(
+      `https://latest.currency-api.pages.dev/v1/currencies/${base.toLowerCase()}.json`
+    );
+    if (primaryRes.ok) {
+      const primaryData = await primaryRes.json();
+      const ratesObj: Record<string, number> | undefined = primaryData[base.toLowerCase()];
+      if (ratesObj) {
+        const rates: Record<string, number> = {};
+        for (const [key, value] of Object.entries(ratesObj)) {
+          rates[key.toUpperCase()] = value as number;
+        }
+        ratesCache[base] = { rates, updated: primaryData.date || new Date().toUTCString() };
+        return rates;
+      }
+    }
+  } catch (_e) {
+    // Fall through to backup API
+  }
+
+  // Fallback API: open.er-api.com
+  const response = await fetch(`https://open.er-api.com/v6/latest/${base}`);
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`);
   }
