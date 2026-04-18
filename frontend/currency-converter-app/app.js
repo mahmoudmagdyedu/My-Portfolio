@@ -66,7 +66,7 @@ async function fetchRates(base) {
     }
     // Primary API: fawazahmed0 currency-api (Cloudflare Pages CDN, no rate limit)
     try {
-        const primaryRes = await fetch(`https://latest.currency-api.pages.dev/v1/currencies/${base.toLowerCase()}.json`);
+        const primaryRes = await fetch('https://latest.currency-api.pages.dev/v1/currencies/' + base.toLowerCase() + '.json');
         if (primaryRes.ok) {
             const primaryData = await primaryRes.json();
             const ratesObj = primaryData[base.toLowerCase()];
@@ -75,7 +75,7 @@ async function fetchRates(base) {
                 for (const [key, value] of Object.entries(ratesObj)) {
                     rates[key.toUpperCase()] = value;
                 }
-                ratesCache[base] = { rates, updated: primaryData.date || new Date().toUTCString() };
+                ratesCache[base] = { rates: rates, updated: primaryData.date || new Date().toUTCString() };
                 return rates;
             }
         }
@@ -83,9 +83,9 @@ async function fetchRates(base) {
         // Fall through to backup API
     }
     // Fallback API: open.er-api.com
-    const response = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+    const response = await fetch('https://open.er-api.com/v6/latest/' + base);
     if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+        throw new Error('API error: ' + response.status);
     }
     const data = await response.json();
     if (data.result !== 'success') {
@@ -119,20 +119,20 @@ async function convert() {
         const rates = await fetchRates(from);
         const rate = rates[to];
         if (rate === undefined) {
-            throw new Error(`Rate not found for ${to}`);
+            throw new Error('Rate not found for ' + to);
         }
         const result = amount * rate;
-        resultText.textContent = `${formatNumber(amount)} ${from} = ${formatNumber(result)} ${to}`;
+        resultText.textContent = formatNumber(amount) + ' ' + from + ' = ' + formatNumber(result) + ' ' + to;
         resultDiv.classList.remove('hidden');
-        rateText.textContent = `1 ${from} = ${formatNumber(rate)} ${to}`;
-        lastUpdated.textContent = `Last updated: ${ratesCache[from]?.updated || 'N/A'}`;
+        rateText.textContent = '1 ' + from + ' = ' + formatNumber(rate) + ' ' + to;
+        lastUpdated.textContent = 'Last updated: ' + (ratesCache[from] ? ratesCache[from].updated : 'N/A');
         rateInfoDiv.classList.remove('hidden');
-        const conversion = {
-            from,
-            to,
-            amount,
-            result,
-            rate,
+        var conversion = {
+            from: from,
+            to: to,
+            amount: amount,
+            result: result,
+            rate: rate,
             timestamp: new Date(),
         };
         addToHistory(conversion);
@@ -160,27 +160,27 @@ function renderHistory() {
         return;
     }
     historyList.innerHTML = conversionHistory
-        .map((c) => {
-        const time = c.timestamp.toLocaleTimeString('en-US', {
+        .map(function(c) {
+        var time = c.timestamp.toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
         });
-        return `<li>${formatNumber(c.amount)} ${c.from} \u2192 ${formatNumber(c.result)} ${c.to} <span style="color:var(--text-muted);float:right">${time}</span></li>`;
+        return '<li>' + formatNumber(c.amount) + ' ' + c.from + ' \u2192 ' + formatNumber(c.result) + ' ' + c.to + ' <span style="color:var(--text-muted);float:right">' + time + '</span></li>';
     })
         .join('');
 }
 function swapCurrencies() {
-    const temp = fromSelect.value;
+    var temp = fromSelect.value;
     fromSelect.value = toSelect.value;
     toSelect.value = temp;
 }
 // ===== Event Listeners =====
 convertBtn.addEventListener('click', convert);
-swapBtn.addEventListener('click', () => {
+swapBtn.addEventListener('click', function() {
     swapCurrencies();
     convert();
 });
-amountInput.addEventListener('keydown', (e) => {
+amountInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter')
         convert();
 });

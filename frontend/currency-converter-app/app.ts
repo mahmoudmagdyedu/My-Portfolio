@@ -82,7 +82,7 @@ function populateSelects(): void {
   POPULAR_CURRENCIES.forEach((currency: Currency) => {
     const option = document.createElement('option');
     option.value = currency.code;
-    option.textContent = `${currency.code} — ${currency.name}`;
+    option.textContent = currency.code + ' \u2014 ' + currency.name;
     fragment.appendChild(option);
   });
 
@@ -101,7 +101,7 @@ async function fetchRates(base: string): Promise<Record<string, number>> {
   // Primary API: fawazahmed0 currency-api (Cloudflare Pages CDN, no rate limit)
   try {
     const primaryRes = await fetch(
-      `https://latest.currency-api.pages.dev/v1/currencies/${base.toLowerCase()}.json`
+      'https://latest.currency-api.pages.dev/v1/currencies/' + base.toLowerCase() + '.json'
     );
     if (primaryRes.ok) {
       const primaryData = await primaryRes.json();
@@ -120,9 +120,9 @@ async function fetchRates(base: string): Promise<Record<string, number>> {
   }
 
   // Fallback API: open.er-api.com
-  const response = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+  const response = await fetch('https://open.er-api.com/v6/latest/' + base);
   if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
+    throw new Error('API error: ' + response.status);
   }
 
   const data: ExchangeRateResponse = await response.json();
@@ -165,16 +165,16 @@ async function convert(): Promise<void> {
     const rate = rates[to];
 
     if (rate === undefined) {
-      throw new Error(`Rate not found for ${to}`);
+      throw new Error('Rate not found for ' + to);
     }
 
     const result = amount * rate;
 
-    resultText.textContent = `${formatNumber(amount)} ${from} = ${formatNumber(result)} ${to}`;
+    resultText.textContent = formatNumber(amount) + ' ' + from + ' = ' + formatNumber(result) + ' ' + to;
     resultDiv.classList.remove('hidden');
 
-    rateText.textContent = `1 ${from} = ${formatNumber(rate)} ${to}`;
-    lastUpdated.textContent = `Last updated: ${ratesCache[from]?.updated || 'N/A'}`;
+    rateText.textContent = '1 ' + from + ' = ' + formatNumber(rate) + ' ' + to;
+    lastUpdated.textContent = 'Last updated: ' + (ratesCache[from] ? ratesCache[from].updated : 'N/A');
     rateInfoDiv.classList.remove('hidden');
 
     const conversion: ConversionResult = {
@@ -216,7 +216,7 @@ function renderHistory(): void {
         hour: '2-digit',
         minute: '2-digit',
       });
-      return `<li>${formatNumber(c.amount)} ${c.from} → ${formatNumber(c.result)} ${c.to} <span style="color:var(--text-muted);float:right">${time}</span></li>`;
+      return '<li>' + formatNumber(c.amount) + ' ' + c.from + ' \u2192 ' + formatNumber(c.result) + ' ' + c.to + ' <span style="color:var(--text-muted);float:right">' + time + '</span></li>';
     })
     .join('');
 }
