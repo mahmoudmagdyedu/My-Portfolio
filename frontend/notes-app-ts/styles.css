@@ -119,6 +119,7 @@ main.container { flex: 1; }
 
 .empty-state { color: var(--muted); text-align: center; grid-column: 1 / -1; }
 
-.app-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.app-footer { border-top: 1px solid var(--border); background: var(--surface); text-align: center; }
+.app-footer .container { display: flex; justify-content: center; align-items: center; }
 .app-footer small { color: var(--muted); }
 .app-footer a { color: var(--primary); }
