@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Notes App — TypeScript</title>
+	<meta name="description" content="تطبيق ملاحظات بسيط باستخدام TypeScript و localStorage" />
+	<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+	<header class="app-header">
+		<div class="container">
+			<h1>📝 Notes</h1>
+			<button id="theme-toggle" class="btn btn-ghost" type="button" aria-label="Toggle theme">🌙</button>
+		</div>
+	</header>
+
+	<main class="container">
+		<section class="panel">
+			<form id="note-form" class="note-form" autocomplete="off">
+				<input id="note-title" type="text" placeholder="عنوان الملاحظة" maxlength="80" required />
+				<textarea id="note-body" rows="4" placeholder="اكتب ملاحظتك هنا..." maxlength="2000" required></textarea>
+				<input id="note-tags" type="text" placeholder="وسوم مفصولة بفواصل (مثال: عمل, دراسة)" />
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">حفظ</button>
+					<button type="reset" class="btn btn-ghost">مسح</button>
+				</div>
+				<p id="form-error" class="form-error" role="alert"></p>
+			</form>
+		</section>
+
+		<section class="toolbar">
+			<input id="search" type="search" placeholder="ابحث في الملاحظات..." />
+			<select id="tag-filter" aria-label="تصفية بالوسم">
+				<option value="">كل الوسوم</option>
+			</select>
+		</section>
+
+		<section id="notes-list" class="notes-list" aria-live="polite">
+			<p class="empty-state">لا توجد ملاحظات بعد. أضف أول ملاحظة من الأعلى ✨</p>
+		</section>
+	</main>
+
+	<footer class="app-footer">
+		<div class="container">
+			<small>جزء من <a href="https://mahmoudmagdy.page">My-Portfolio</a> — المرحلة 2 (TypeScript)</small>
+		</div>
+	</footer>
+
+	<script src="./dist/app.js" defer></script>
+</body>
+</html>

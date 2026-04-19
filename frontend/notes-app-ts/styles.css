@@ -1,0 +1,124 @@
+:root {
+	--bg: #f7f7fb;
+	--surface: #ffffff;
+	--text: #1a1a2e;
+	--muted: #6b7280;
+	--primary: #4f46e5;
+	--primary-contrast: #ffffff;
+	--border: #e5e7eb;
+	--danger: #dc2626;
+	--radius: 12px;
+	--shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] {
+	--bg: #0f1226;
+	--surface: #181a33;
+	--text: #f3f4f6;
+	--muted: #9ca3af;
+	--primary: #818cf8;
+	--primary-contrast: #0f1226;
+	--border: #2a2d50;
+	--shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+	background: var(--bg);
+	color: var(--text);
+	line-height: 1.6;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	width: min(960px, 100%);
+	margin: 0 auto;
+	padding: 16px;
+}
+
+.app-header {
+	background: var(--surface);
+	border-bottom: 1px solid var(--border);
+}
+.app-header .container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.app-header h1 { margin: 0; font-size: 1.4rem; }
+
+main.container { flex: 1; }
+
+.panel {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 16px;
+	margin-bottom: 16px;
+}
+
+.note-form { display: grid; gap: 10px; }
+.note-form input, .note-form textarea, .toolbar input, .toolbar select {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--bg);
+	color: var(--text);
+	font: inherit;
+}
+.note-form textarea { resize: vertical; }
+
+.form-actions { display: flex; gap: 8px; }
+
+.btn {
+	padding: 8px 14px;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	cursor: pointer;
+	font: inherit;
+}
+.btn-primary { background: var(--primary); color: var(--primary-contrast); }
+.btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+.btn:hover { opacity: 0.9; }
+
+.form-error { color: var(--danger); min-height: 1.2em; margin: 0; font-size: 0.9rem; }
+
+.toolbar {
+	display: grid;
+	grid-template-columns: 1fr 200px;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+@media (max-width: 560px) { .toolbar { grid-template-columns: 1fr; } }
+
+.notes-list { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+
+.note-card {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.note-card.pinned { border-color: var(--primary); }
+.note-card h3 { margin: 0; font-size: 1.05rem; }
+.note-card p { margin: 0; color: var(--muted); white-space: pre-wrap; }
+.note-card .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.note-card .tag { font-size: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; }
+.note-card .actions { display: flex; gap: 6px; margin-top: auto; }
+
+.empty-state { color: var(--muted); text-align: center; grid-column: 1 / -1; }
+
+.app-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.app-footer small { color: var(--muted); }
+.app-footer a { color: var(--primary); }
