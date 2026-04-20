@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Markdown Editor</title>
+	<link rel="stylesheet" href="styles.css" />
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+	<script src="app.js" defer></script>
+</head>
+<body>
+	<header class="app-header">
+		<h1>📝 Markdown Editor</h1>
+		<div class="toolbar">
+			<button data-action="bold" title="Bold"><b>B</b></button>
+			<button data-action="italic" title="Italic"><i>I</i></button>
+			<button data-action="heading" title="Heading">H</button>
+			<button data-action="link" title="Link">🔗</button>
+			<button data-action="code" title="Code">&lt;/&gt;</button>
+			<button data-action="list" title="List">•</button>
+			<button id="download" title="Download .md">⬇️</button>
+			<button id="toggle-theme" title="Toggle theme">🌓</button>
+		</div>
+	</header>
+
+	<main class="editor-container">
+		<textarea id="editor" placeholder="اكتب Markdown هنا..."># مرحباً
+
+هذا **محرر Markdown** مع معاينة *مباشرة*.
+
+- عنصر أول
+- عنصر ثانٍ
+
+```js
+console.log('Hello, Markdown!')
+```
+</textarea>
+		<article id="preview" class="preview"></article>
+	</main>
+
+	<footer class="app-footer">
+		<small>Part of <a href="https://mahmoudmagdy.page" target="_blank">My Portfolio</a> — built by Mahmoud Magdy.</small>
+	</footer>
+</body>
+</html>

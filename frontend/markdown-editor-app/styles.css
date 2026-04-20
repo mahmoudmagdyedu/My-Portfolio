@@ -1,0 +1,112 @@
+* { box-sizing: border-box; }
+
+:root {
+	--bg: #ffffff;
+	--surface: #f7f7f9;
+	--text: #1f2328;
+	--muted: #6b7280;
+	--border: #e5e7eb;
+	--accent: #2563eb;
+}
+
+[data-theme="dark"] {
+	--bg: #0d1117;
+	--surface: #161b22;
+	--text: #e6edf3;
+	--muted: #9ca3af;
+	--border: #30363d;
+	--accent: #58a6ff;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", sans-serif;
+	background: var(--bg);
+	color: var(--text);
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.app-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	background: var(--surface);
+	border-bottom: 1px solid var(--border);
+}
+
+.app-header h1 { font-size: 1.1rem; margin: 0; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.toolbar button {
+	background: var(--bg);
+	color: var(--text);
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	padding: 0.35rem 0.6rem;
+	cursor: pointer;
+	font-size: 0.9rem;
+}
+.toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+
+.editor-container {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1px;
+	background: var(--border);
+}
+
+#editor, .preview {
+	background: var(--bg);
+	padding: 1rem;
+	overflow: auto;
+}
+
+#editor {
+	border: 0;
+	outline: none;
+	resize: none;
+	font-family: ui-monospace, Menlo, Consolas, monospace;
+	font-size: 0.95rem;
+	line-height: 1.6;
+	color: var(--text);
+	direction: ltr;
+	text-align: left;
+}
+
+.preview {
+	direction: ltr;
+	text-align: left;
+	line-height: 1.6;
+}
+.preview pre {
+	background: var(--surface);
+	padding: 0.75rem;
+	border-radius: 6px;
+	overflow: auto;
+}
+.preview code { font-family: ui-monospace, Menlo, Consolas, monospace; }
+.preview a { color: var(--accent); }
+
+.app-footer {
+	padding: 0.5rem 1rem;
+	text-align: center;
+	color: var(--muted);
+	border-top: 1px solid var(--border);
+	background: var(--surface);
+}
+.app-footer a { color: var(--accent); text-decoration: none; }
+
+@media (max-width: 720px) {
+	.editor-container { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+}
