@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator | مولّد كلمات المرور</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="container">
+        <header class="header">
+            <h1>🔐 مولّد كلمات المرور</h1>
+            <p class="subtitle">أنشئ كلمات مرور قوية وآمنة في ثوانٍ</p>
+        </header>
+
+        <section class="output-box">
+            <input type="text" id="password-output" readonly placeholder="كلمة المرور ستظهر هنا..." />
+            <button id="copy-btn" class="icon-btn" title="نسخ">📋</button>
+            <button id="refresh-btn" class="icon-btn" title="توليد جديد">🔄</button>
+        </section>
+
+        <div class="strength-bar">
+            <div id="strength-fill"></div>
+            <span id="strength-label">—</span>
+        </div>
+
+        <section class="controls">
+            <div class="control-row">
+                <label for="length">الطول: <span id="length-value">16</span></label>
+                <input type="range" id="length" min="4" max="64" value="16" />
+            </div>
+
+            <div class="options">
+                <label><input type="checkbox" id="opt-upper" checked /> أحرف كبيرة (A-Z)</label>
+                <label><input type="checkbox" id="opt-lower" checked /> أحرف صغيرة (a-z)</label>
+                <label><input type="checkbox" id="opt-digits" checked /> أرقام (0-9)</label>
+                <label><input type="checkbox" id="opt-symbols" /> رموز (!@#$...)</label>
+            </div>
+
+            <button id="generate-btn" class="primary-btn">توليد كلمة مرور</button>
+        </section>
+
+        <footer class="footer">
+            <small>جزء من <a href="https://mahmoudmagdy.page">My-Portfolio</a> — Mahmoud Magdy</small>
+        </footer>
+    </main>
+
+    <script src="main.js" defer></script>
+</body>
+</html>
