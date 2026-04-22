@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Invoice Generator App</title>
+	<meta name="description" content="مولد فواتير احترافي بسيط — أنشئ فاتورة واطبعها في ثوانٍ." />
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<header class="app-header no-print">
+		<h1>🧾 Invoice Generator</h1>
+		<div class="actions">
+			<button id="addItemBtn" type="button">+ إضافة بند</button>
+			<button id="printBtn" type="button">🖨️ طباعة / PDF</button>
+		</div>
+	</header>
+
+	<main class="invoice" id="invoice">
+		<section class="parties">
+			<div class="party">
+				<h3>من (البائع)</h3>
+				<input type="text" placeholder="اسم الشركة / البائع" />
+				<input type="text" placeholder="العنوان" />
+				<input type="email" placeholder="البريد الإلكتروني" />
+			</div>
+			<div class="party">
+				<h3>إلى (العميل)</h3>
+				<input type="text" placeholder="اسم العميل" />
+				<input type="text" placeholder="العنوان" />
+				<input type="email" placeholder="البريد الإلكتروني" />
+			</div>
+		</section>
+
+		<section class="meta">
+			<label>رقم الفاتورة <input type="text" value="INV-0001" /></label>
+			<label>تاريخ الإصدار <input type="date" /></label>
+			<label>تاريخ الاستحقاق <input type="date" /></label>
+			<label>العملة
+				<select id="currency">
+					<option value="EGP">EGP</option>
+					<option value="USD">USD</option>
+					<option value="EUR">EUR</option>
+					<option value="SAR">SAR</option>
+				</select>
+			</label>
+		</section>
+
+		<table class="items">
+			<thead>
+				<tr>
+					<th>الوصف</th>
+					<th>الكمية</th>
+					<th>السعر</th>
+					<th>الإجمالي</th>
+					<th class="no-print"></th>
+				</tr>
+			</thead>
+			<tbody id="itemsBody">
+				<!-- يتم إضافة الصفوف ديناميكياً -->
+			</tbody>
+		</table>
+
+		<section class="totals">
+			<label>نسبة الضريبة %
+				<input type="number" id="taxRate" value="14" min="0" max="100" />
+			</label>
+			<label>الخصم
+				<input type="number" id="discount" value="0" min="0" />
+			</label>
+			<div class="summary">
+				<div>المجموع الفرعي: <span id="subtotal">0.00</span></div>
+				<div>الضريبة: <span id="taxAmount">0.00</span></div>
+				<div>الخصم: <span id="discountAmount">0.00</span></div>
+				<div class="grand">الإجمالي: <span id="total">0.00</span> <span id="currencyLabel">EGP</span></div>
+			</div>
+		</section>
+
+		<footer class="notes">
+			<label>ملاحظات <textarea placeholder="شروط الدفع، ملاحظات إضافية..."></textarea></label>
+		</footer>
+	</main>
+
+	<script>
+		const itemsBody = document.getElementById('itemsBody');
+		const addItemBtn = document.getElementById('addItemBtn');
+		const printBtn = document.getElementById('printBtn');
+		const taxRateEl = document.getElementById('taxRate');
+		const discountEl = document.getElementById('discount');
+		const currencyEl = document.getElementById('currency');
+
+		function createRow(desc = '', qty = 1, price = 0) {
+			const tr = document.createElement('tr');
+			tr.innerHTML = `
+				<td><input type="text" class="desc" value="${desc}" placeholder="وصف البند" /></td>
+				<td><input type="number" class="qty" value="${qty}" min="0" /></td>
+				<td><input type="number" class="price" value="${price}" min="0" step="0.01" /></td>
+				<td class="line-total">0.00</td>
+				<td class="no-print"><button type="button" class="remove">✕</button></td>
+			`;
+			tr.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
+			tr.querySelector('.remove').addEventListener('click', () => { tr.remove(); recalc(); });
+			itemsBody.appendChild(tr);
+			recalc();
+		}
+
+		function recalc() {
+			let subtotal = 0;
+			itemsBody.querySelectorAll('tr').forEach(tr => {
+				const qty = parseFloat(tr.querySelector('.qty').value) || 0;
+				const price = parseFloat(tr.querySelector('.price').value) || 0;
+				const line = qty * price;
+				tr.querySelector('.line-total').textContent = line.toFixed(2);
+				subtotal += line;
+			});
+			const taxRate = parseFloat(taxRateEl.value) || 0;
+			const discount = parseFloat(discountEl.value) || 0;
+			const taxAmount = subtotal * (taxRate / 100);
+			const total = Math.max(0, subtotal + taxAmount - discount);
+			document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+			document.getElementById('taxAmount').textContent = taxAmount.toFixed(2);
+			document.getElementById('discountAmount').textContent = discount.toFixed(2);
+			document.getElementById('total').textContent = total.toFixed(2);
+			document.getElementById('currencyLabel').textContent = currencyEl.value;
+		}
+
+		addItemBtn.addEventListener('click', () => createRow());
+		printBtn.addEventListener('click', () => window.print());
+		taxRateEl.addEventListener('input', recalc);
+		discountEl.addEventListener('input', recalc);
+		currencyEl.addEventListener('change', recalc);
+
+		// صفوف افتراضية
+		createRow('خدمة تصميم صفحة هبوط', 1, 1500);
+		createRow('استضافة شهرية', 1, 200);
+	</script>
+</body>
+</html>
