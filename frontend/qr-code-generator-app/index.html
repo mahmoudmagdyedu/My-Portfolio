@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QRForge — QR Code Generator</title>
+  <meta name="description" content="QRForge - مولّد أكواد QR سريع لروابط ونصوص وواتساب وWi-Fi مع تنزيل PNG." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@master/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div class="topbar">
+        <a href="../../" class="pill">← العودة للـ Portfolio</a>
+        <button class="pill" id="theme-toggle">🌙 الوضع الداكن</button>
+      </div>
+      <h1>🔳 QRForge</h1>
+      <p>مولّد أكواد QR سريع ومرن — روابط، نصوص، واتساب، Wi-Fi والمزيد.</p>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <div class="field">
+          <label for="type">نوع الكود</label>
+          <select id="type">
+            <option value="url">رابط URL</option>
+            <option value="text">نص حر</option>
+            <option value="email">بريد إلكتروني</option>
+            <option value="phone">رقم هاتف</option>
+            <option value="whatsapp">واتساب</option>
+            <option value="wifi">شبكة Wi-Fi</option>
+          </select>
+        </div>
+
+        <div class="field" id="input-wrap">
+          <label for="value">القيمة</label>
+          <input id="value" type="text" placeholder="https://example.com" />
+        </div>
+
+        <div class="field hidden" id="wifi-fields" style="display:none">
+          <div class="row">
+            <div class="field"><label>اسم الشبكة (SSID)</label><input id="wifi-ssid" type="text" placeholder="MyWiFi" /></div>
+            <div class="field"><label>كلمة المرور</label><input id="wifi-pass" type="text" placeholder="••••••••" /></div>
+          </div>
+          <div class="field"><label>التشفير</label>
+            <select id="wifi-enc"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">بدون كلمة مرور</option></select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="size">الحجم (px)</label>
+            <input id="size" type="number" min="128" max="1024" step="16" value="256" />
+          </div>
+          <div class="field">
+            <label for="margin">الهامش</label>
+            <input id="margin" type="number" min="0" max="10" step="1" value="2" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="generate">✨ توليد الكود</button>
+          <button class="btn btn-ghost" id="download" disabled>⬇️ تنزيل PNG</button>
+        </div>
+        <p class="muted" style="margin-top:12px">اكتب القيمة ثم اضغط «توليد» — الكود يتحدث فوراً عند التعديل.</p>
+      </div>
+
+      <div class="card">
+        <div class="qr-box" id="qr-box">
+          <span class="muted">ستظهر صورة الـ QR هنا</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2025 QRForge — جزء من My-Portfolio</footer>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const typeEl = $('type'), valueEl = $('value'), inputWrap = $('input-wrap'), wifiFields = $('wifi-fields');
+    const sizeEl = $('size'), marginEl = $('margin'), qrBox = $('qr-box');
+    const generateBtn = $('generate'), downloadBtn = $('download'), themeBtn = $('theme-toggle');
+    let qr = null;
+
+    const placeholders = {
+      url: 'https://example.com',
+      text: 'اكتب النص هنا...',
+      email: 'you@example.com',
+      phone: '+201228086441',
+      whatsapp: '201228086441',
+      wifi: ''
+    };
+
+    typeEl.addEventListener('change', () => {
+      const t = typeEl.value;
+      valueEl.placeholder = placeholders[t] || '';
+      if (t === 'wifi') { inputWrap.style.display = 'none'; wifiFields.style.display = 'flex'; }
+      else { inputWrap.style.display = 'flex'; wifiFields.style.display = 'none'; }
+    });
+
+    function buildPayload() {
+      const t = typeEl.value;
+      const v = (valueEl.value || '').trim();
+      switch (t) {
+        case 'url': return v.startsWith('http') ? v : ('https://' + v);
+        case 'text': return v;
+        case 'email': return 'mailto:' + v;
+        case 'phone': return 'tel:' + v;
+        case 'whatsapp': return 'https://wa.me/' + v.replace(/\D/g,'');
+        case 'wifi': {
+          const s = ($('wifi-ssid').value || '').trim();
+          const p = ($('wifi-pass').value || '').trim();
+          const e = $('wifi-enc').value;
+          return `WIFI:T:${e};S:${s};P:${p};;`;
+        }
+        default: return v;
+      }
+    }
+
+    function generate() {
+      const payload = buildPayload();
+      if (!payload) { qrBox.innerHTML = '<span class="muted">الرجاء إدخال قيمة</span>'; downloadBtn.disabled = true; return; }
+      qrBox.innerHTML = '';
+      qr = new QRCode(qrBox, {
+        text: payload,
+        width: parseInt(sizeEl.value, 10) || 256,
+        height: parseInt(sizeEl.value, 10) || 256,
+        correctLevel: QRCode.CorrectLevel.M,
+      });
+      downloadBtn.disabled = false;
+    }
+
+    function download() {
+      const canvas = qrBox.querySelector('canvas');
+      const img = qrBox.querySelector('img');
+      const src = canvas ? canvas.toDataURL('image/png') : (img ? img.src : null);
+      if (!src) return;
+      const a = document.createElement('a');
+      a.href = src; a.download = 'qrforge.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    generateBtn.addEventListener('click', generate);
+    downloadBtn.addEventListener('click', download);
+    ['input','change'].forEach(ev => {
+      [valueEl, sizeEl, marginEl, $('wifi-ssid'), $('wifi-pass'), $('wifi-enc')].forEach(el => el && el.addEventListener(ev, () => { if (qr) generate(); }));
+    });
+
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('qrforge-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+    if (localStorage.getItem('qrforge-theme') === 'dark') document.documentElement.classList.add('dark');
+  </script>
+</body>
+</html>
