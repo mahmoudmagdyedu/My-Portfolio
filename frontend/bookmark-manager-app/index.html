@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkVault — مدير الروابط</title>
+  <meta name="description" content="LinkVault — تطبيق إدارة وتنظيم الروابط المفضلة بفئات وتاجات وبحث فوري" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:0.5rem">
+      <button id="themeToggle" class="btn" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:#fff;font-size:0.8rem;padding:0.5rem 1rem;border-radius:9999px">🌙 الوضع الداكن</button>
+    </div>
+    <h1>🔗 LinkVault</h1>
+    <p>نظّم روابطك المفضلة في مكان واحد</p>
+  </header>
+
+  <!-- Search -->
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input id="searchInput" type="text" class="search-box" placeholder="ابحث عن رابط، تاج، أو وصف..." autocomplete="off" />
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <button id="addBtn" class="btn btn-primary">➕ إضافة رابط</button>
+      <button id="exportBtn" class="btn">📤 تصدير</button>
+      <button id="importBtn" class="btn">📥 استيراد</button>
+      <input type="file" id="importFile" accept=".json" hidden />
+    </div>
+    <div id="categoryPills" class="category-pills"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-chip">📚 الكل: <span class="num" id="statTotal">0</span></div>
+    <div class="stat-chip">⭐ مفضلة: <span class="num" id="statFavorites">0</span></div>
+    <div class="stat-chip">📂 فئات: <span class="num" id="statCategories">0</span></div>
+  </div>
+
+  <!-- Bookmarks Grid -->
+  <div id="bookmarksGrid" class="bookmarks-grid"></div>
+
+  <!-- Empty State -->
+  <div id="emptyState" class="empty-state" style="display:none">
+    <div class="icon">📭</div>
+    <h3>لا توجد روابط</h3>
+    <p>أضف أول رابط لك بالضغط على زر "إضافة رابط" أعلاه</p>
+  </div>
+
+  <!-- Modal -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal">
+      <h2 id="modalTitle">➕ إضافة رابط جديد</h2>
+      <form id="bookmarkForm">
+        <label for="inputTitle">العنوان *</label>
+        <input id="inputTitle" type="text" placeholder="مثال: MDN Web Docs" required />
+
+        <label for="inputUrl">الرابط (URL) *</label>
+        <input id="inputUrl" type="url" placeholder="https://example.com" dir="ltr" required />
+
+        <label for="inputDesc">الوصف</label>
+        <textarea id="inputDesc" rows="2" placeholder="وصف مختصر للرابط..."></textarea>
+
+        <label for="inputCategory">الفئة</label>
+        <select id="inputCategory">
+          <option value="عمل">عمل</option>
+          <option value="تعلم" selected>تعلم</option>
+          <option value="ترفيه">ترفيه</option>
+          <option value="إجتماعي">إجتماعي</option>
+          <option value="أدوات">أدوات</option>
+          <option value="أخبار">أخبار</option>
+          <option value="أخرى">أخرى</option>
+        </select>
+
+        <label for="inputTags">التاجات <span style="font-weight:400;color:var(--text-muted)">(مفصولة بفواصل)</span></label>
+        <input id="inputTags" type="text" placeholder="مثال: docs, web, reference" dir="ltr" />
+
+        <div class="modal-actions">
+          <button type="button" id="modalCancel" class="btn">إلغاء</button>
+          <button type="submit" class="btn btn-primary">💾 حفظ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:0.8rem">
+    © 2025 <a href="https://mahmoudmagdy.page" style="color:var(--primary);font-weight:700;text-decoration:none">Mahmoud Magdy</a> — LinkVault
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
