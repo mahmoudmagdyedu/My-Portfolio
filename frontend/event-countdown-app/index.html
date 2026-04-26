@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CountDown Pro — عد تنازلي للأحداث</title>
+  <meta name="description" content="تطبيق عد تنازلي تفاعلي — أنشئ عدّادات لأحداثك المهمة وتابعها لحظيًا" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-[Cairo] transition-colors">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-l from-indigo-900 via-indigo-800 to-purple-900 text-white py-8 sm:py-12">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="flex justify-end mb-4">
+        <button id="darkToggle" class="inline-flex items-center gap-1.5 bg-white/10 backdrop-blur px-4 py-2 rounded-full text-sm font-bold border border-white/20 hover:bg-white/20 transition cursor-pointer" aria-label="تبديل الوضع">
+          🌙 <span>الوضع الداكن</span>
+        </button>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black mb-3 tracking-tight">⏳ CountDown Pro</h1>
+      <p class="text-indigo-200 text-lg sm:text-xl font-semibold">أنشئ عدّادات تنازلية لأحداثك المهمة وتابعها لحظيًا</p>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+
+    <!-- Add Event Button -->
+    <div class="flex justify-center mb-8">
+      <button id="addEventBtn" class="inline-flex items-center gap-2 bg-gradient-to-l from-indigo-600 to-purple-600 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all text-lg cursor-pointer">
+        ➕ أضف حدث جديد
+      </button>
+    </div>
+
+    <!-- Events Grid -->
+    <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Cards will be injected here -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="text-center py-16">
+      <div class="text-6xl mb-4">📅</div>
+      <h2 class="text-2xl font-black text-slate-400 dark:text-slate-500 mb-2">لا توجد أحداث بعد</h2>
+      <p class="text-slate-500 dark:text-slate-400">اضغط "أضف حدث جديد" لإنشاء أول عد تنازلي لك!</p>
+    </div>
+
+  </main>
+
+  <!-- Add Event Modal -->
+  <div id="eventModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modalOverlay"></div>
+    <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6 sm:p-8 border border-slate-200 dark:border-slate-700">
+      <h2 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">📅 حدث جديد</h2>
+      <form id="eventForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-bold text-slate-600 dark:text-slate-300 mb-1">اسم الحدث</label>
+          <input type="text" id="eventName" required placeholder="مثال: موعد التسليم" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" />
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-600 dark:text-slate-300 mb-1">التاريخ والوقت</label>
+          <input type="datetime-local" id="eventDate" required class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" />
+        </div>
+        <div>
+          <label class="block text-sm font-bold text-slate-600 dark:text-slate-300 mb-1">الأيقونة</label>
+          <div id="iconPicker" class="flex flex-wrap gap-2">
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="🎂">🎂</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="🎓">🎓</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="✈️">✈️</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="💼">💼</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="🏆">🏆</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="💍">💍</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="🚀">🚀</button>
+            <button type="button" class="icon-btn text-2xl w-11 h-11 rounded-xl border-2 border-transparent hover:border-indigo-400 flex items-center justify-center transition cursor-pointer" data-icon="📅">📅</button>
+          </div>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="submit" class="flex-1 bg-gradient-to-l from-indigo-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:shadow-lg transition cursor-pointer">حفظ</button>
+          <button type="button" id="cancelBtn" class="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold py-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition cursor-pointer">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back to Portfolio -->
+  <div class="text-center py-6">
+    <a href="/" class="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold hover:underline">→ العودة للـ Portfolio</a>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
