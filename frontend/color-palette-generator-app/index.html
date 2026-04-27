@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PaletteForge — مولّد لوحات الألوان</title>
+  <meta name="description" content="PaletteForge — مولّد لوحات ألوان احترافي. ولّد توليفات عشوائية، اقفل الألوان، وانسخ الـHex بضغطة زر." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <a href="../../index.html" class="back-link" aria-label="العودة للصفحة الرئيسية">← العودة</a>
+      <div class="brand">
+        <span class="logo" aria-hidden="true">🎨</span>
+        <div>
+          <h1>PaletteForge</h1>
+          <p>مولّد لوحات الألوان</p>
+        </div>
+      </div>
+      <button id="themeToggle" class="theme-btn" aria-label="تبديل الوضع الداكن">🌙</button>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="controls" aria-label="أدوات التحكم">
+      <button id="generateBtn" class="btn primary" type="button">
+        <span aria-hidden="true">🎲</span> توليد لوحة جديدة
+        <kbd>Space</kbd>
+      </button>
+      <button id="copyAllBtn" class="btn ghost" type="button">
+        <span aria-hidden="true">📋</span> نسخ اللوحة
+      </button>
+      <button id="exportBtn" class="btn ghost" type="button">
+        <span aria-hidden="true">💾</span> تصدير JSON
+      </button>
+    </section>
+
+    <section id="palette" class="palette" aria-label="لوحة الألوان"></section>
+
+    <p class="hint">اضغط على لون لنسخ كود الـHex • اضغط على القفل لتثبيت اللون • اضغط Space لتوليد لوحة جديدة</p>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <footer class="app-footer">
+    <p>صنع بـ ❤️ — جزء من <a href="https://github.com/mahmoudmagdyedu/My-Portfolio" target="_blank" rel="noopener">My-Portfolio</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
