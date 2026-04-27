@@ -1,0 +1,57 @@
+/* JSONCraft — تنسيقات إضافية فوق Tailwind */
+
+:root {
+  --jc-mono: 'Fira Code', 'Courier New', monospace;
+}
+
+/* مؤشر تركيز محسّن */
+textarea:focus, button:focus-visible, select:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* تخصيص شريط التمرير */
+#output, textarea {
+  scrollbar-width: thin;
+  scrollbar-color: #818cf8 transparent;
+}
+#output::-webkit-scrollbar, textarea::-webkit-scrollbar { width: 8px; height: 8px; }
+#output::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
+  background: #818cf8; border-radius: 4px;
+}
+#output::-webkit-scrollbar-thumb:hover, textarea::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+/* تأثير ظهور الأزرار */
+.action-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
+}
+.action-btn:active { transform: translateY(0); }
+
+/* Tree View */
+#output details > summary {
+  list-style: none;
+  user-select: none;
+}
+#output details > summary::-webkit-details-marker { display: none; }
+#output details > summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-inline-end: 4px;
+  transition: transform 0.15s ease;
+  color: #6366f1;
+}
+#output details[open] > summary::before { transform: rotate(90deg); }
+#output ul { list-style: none; padding: 0; margin: 0; }
+#output li { padding: 1px 0; }
+
+/* Print friendly */
+@media print {
+  header, footer, #status, .action-btn, #copy-btn, #download-btn { display: none !important; }
+  #output { border: none; height: auto; }
+}

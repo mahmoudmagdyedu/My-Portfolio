@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSONCraft — JSON Formatter & Validator</title>
+  <meta name="description" content="أداة احترافية لتنسيق والتحقق من JSON — Beautify, Minify, Validate, Tree View. كل العمل في المتصفح." />
+  <meta name="theme-color" content="#312e81" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%7B%7D%3C/text%3E%3C/svg%3E" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Cairo', 'sans-serif'], mono: ['Fira Code', 'monospace'] } } }
+    };
+    if (localStorage.getItem('jsoncraft-theme') === 'dark') document.documentElement.classList.add('dark');
+  </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen transition-colors">
+
+  <header class="bg-gradient-to-br from-indigo-700 via-indigo-600 to-purple-700 text-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl sm:text-4xl">{ }</span>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-black tracking-tight">JSONCraft</h1>
+          <p class="text-xs sm:text-sm text-indigo-200">منسق ومُتحقق JSON احترافي</p>
+        </div>
+      </div>
+      <button id="theme-toggle" class="bg-white/10 hover:bg-white/20 backdrop-blur border border-white/20 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1.5 transition">
+        <span id="theme-icon">🌙</span><span class="hidden sm:inline">الوضع الداكن</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+
+    <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 sm:p-6 mb-6">
+      <div class="flex flex-wrap gap-2 mb-4" dir="ltr">
+        <button data-action="beautify" class="action-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition">🎨 Beautify</button>
+        <button data-action="minify" class="action-btn bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition">🗜️ Minify</button>
+        <button data-action="validate" class="action-btn bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition">✅ Validate</button>
+        <button data-action="tree" class="action-btn bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition">🌳 Tree View</button>
+        <button data-action="sample" class="action-btn bg-slate-600 hover:bg-slate-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition">📥 Sample</button>
+        <button data-action="clear" class="action-btn bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm px-4 py-2 rounded-lg transition">🗑️ Clear</button>
+        <select id="indent-select" class="bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm font-bold">
+          <option value="2">Indent: 2</option>
+          <option value="4">Indent: 4</option>
+          <option value="\t">Indent: Tab</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">📥 Input</label>
+            <span id="input-stats" class="text-xs text-slate-500 dark:text-slate-400">0 chars</span>
+          </div>
+          <textarea id="input" class="w-full h-72 sm:h-96 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg p-3 font-mono text-xs sm:text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-y" placeholder='{"name": "Mahmoud", "role": "Full Stack Developer"}' dir="ltr" spellcheck="false"></textarea>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">📤 Output</label>
+            <div class="flex gap-2">
+              <button id="copy-btn" class="text-xs font-bold bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 px-2.5 py-1 rounded-md transition">📋 Copy</button>
+              <button id="download-btn" class="text-xs font-bold bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 px-2.5 py-1 rounded-md transition">⬇️ Download</button>
+            </div>
+          </div>
+          <div id="output" class="w-full h-72 sm:h-96 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg p-3 font-mono text-xs sm:text-sm leading-relaxed overflow-auto whitespace-pre-wrap" dir="ltr"></div>
+        </div>
+      </div>
+
+      <div id="status" class="mt-4 hidden rounded-lg p-3 text-sm font-bold" role="status"></div>
+
+      <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div class="bg-slate-100 dark:bg-slate-700 rounded-lg p-3">
+          <div class="text-xs text-slate-500 dark:text-slate-400">المفاتيح</div>
+          <div id="stat-keys" class="font-black text-lg text-indigo-700 dark:text-indigo-400">0</div>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-700 rounded-lg p-3">
+          <div class="text-xs text-slate-500 dark:text-slate-400">العناصر</div>
+          <div id="stat-items" class="font-black text-lg text-purple-700 dark:text-purple-400">0</div>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-700 rounded-lg p-3">
+          <div class="text-xs text-slate-500 dark:text-slate-400">العمق</div>
+          <div id="stat-depth" class="font-black text-lg text-emerald-700 dark:text-emerald-400">0</div>
+        </div>
+        <div class="bg-slate-100 dark:bg-slate-700 rounded-lg p-3">
+          <div class="text-xs text-slate-500 dark:text-slate-400">الحجم</div>
+          <div id="stat-size" class="font-black text-lg text-amber-700 dark:text-amber-400">0 B</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 sm:p-6">
+      <h2 class="font-black text-lg text-indigo-700 dark:text-indigo-400 mb-3">💡 ملاحظات</h2>
+      <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-1.5 list-disc pr-5">
+        <li>كل المعالجة تتم محلياً في متصفحك — بياناتك آمنة ولا تُرسل لأي خادم.</li>
+        <li>عند ظهور خطأ، رسالة الخطأ تحتوي على رقم السطر والعمود لتسهيل التتبع.</li>
+        <li>وضع Tree View يدعم الطي/التوسيع بالنقر على الأسهم.</li>
+        <li>يتم حفظ آخر مدخل وتفضيل الوضع الداكن في `localStorage`.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-slate-500 dark:text-slate-400 py-6 px-4">
+    صُنع بـ ❤️ على يد <a href="/" class="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">محمود مجدي</a> — JSONCraft © 2025
+  </footer>
+
+  <script>
+    // JSONCraft — vanilla TS-style logic compiled to JS
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const input = $('input');
+      const output = $('output');
+      const status = $('status');
+      const indentSelect = $('indent-select');
+      const themeToggle = $('theme-toggle');
+      const themeIcon = $('theme-icon');
+      const stats = { keys: $('stat-keys'), items: $('stat-items'), depth: $('stat-depth'), size: $('stat-size') };
+
+      const SAMPLE = {
+        portfolio: 'My-Portfolio',
+        author: { name: 'Mahmoud Magdy', role: 'Full Stack Developer', city: 'Alexandria' },
+        stack: ['HTML', 'CSS', 'TypeScript', 'Angular', '.NET', 'SQL'],
+        projects: [
+          { id: 1, name: 'JSONCraft', stage: 2, ts: true },
+          { id: 2, name: 'LinkVault', stage: 2, ts: true }
+        ],
+        active: true,
+        version: 1.0
+      };
+
+      function showStatus(msg, kind) {
+        status.textContent = msg;
+        status.className = 'mt-4 rounded-lg p-3 text-sm font-bold ' + (
+          kind === 'ok' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300' :
+          kind === 'error' ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300' :
+          'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+        );
+      }
+
+      function getIndent() { const v = indentSelect.value; return v === '\\t' ? '\t' : Number(v); }
+
+      function parseJson(text) {
+        try { return { ok: true, value: JSON.parse(text) }; }
+        catch (e) {
+          const msg = e instanceof Error ? e.message : String(e);
+          const match = /position (\d+)/.exec(msg);
+          let line = 1, col = 1;
+          if (match) {
+            const pos = Number(match[1]);
+            const before = text.slice(0, pos);
+            line = before.split('\n').length;
+            col = pos - before.lastIndexOf('\n');
+          }
+          return { ok: false, error: msg + ' — السطر ' + line + '، العمود ' + col };
+        }
+      }
+
+      function computeStats(value, raw) {
+        let keys = 0, items = 0, depth = 0;
+        const walk = (v, d) => {
+          if (d > depth) depth = d;
+          if (Array.isArray(v)) { items += v.length; v.forEach(x => walk(x, d + 1)); }
+          else if (v && typeof v === 'object') {
+            const k = Object.keys(v); keys += k.length;
+            k.forEach(key => walk(v[key], d + 1));
+          }
+        };
+        walk(value, 0);
+        const bytes = new Blob([raw]).size;
+        const size = bytes < 1024 ? bytes + ' B' : (bytes / 1024).toFixed(2) + ' KB';
+        stats.keys.textContent = String(keys);
+        stats.items.textContent = String(items);
+        stats.depth.textContent = String(depth);
+        stats.size.textContent = size;
+      }
+
+      function escapeHtml(s) { return s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+      function renderTree(value) {
+        const build = (v) => {
+          if (v === null) return '<span class="text-rose-600 dark:text-rose-400">null</span>';
+          if (typeof v === 'boolean') return '<span class="text-amber-600 dark:text-amber-400">' + v + '</span>';
+          if (typeof v === 'number') return '<span class="text-purple-600 dark:text-purple-400">' + v + '</span>';
+          if (typeof v === 'string') return '<span class="text-emerald-700 dark:text-emerald-400">"' + escapeHtml(v) + '"</span>';
+          if (Array.isArray(v)) {
+            if (v.length === 0) return '<span class="text-slate-500">[ ]</span>';
+            const items = v.map((x, i) => '<li><span class="text-slate-500">' + i + ':</span> ' + build(x) + '</li>').join('');
+            return '<details open class="ml-4"><summary class="cursor-pointer text-slate-600 dark:text-slate-300">[ Array · ' + v.length + ' ]</summary><ul class="ml-4 border-r-2 border-slate-200 dark:border-slate-600 pr-3">' + items + '</ul></details>';
+          }
+          if (typeof v === 'object') {
+            const keys = Object.keys(v);
+            if (keys.length === 0) return '<span class="text-slate-500">{ }</span>';
+            const items = keys.map(k => '<li><span class="text-indigo-700 dark:text-indigo-400 font-bold">"' + escapeHtml(k) + '":</span> ' + build(v[k]) + '</li>').join('');
+            return '<details open class="ml-4"><summary class="cursor-pointer text-slate-600 dark:text-slate-300">{ Object · ' + keys.length + ' }</summary><ul class="ml-4 border-r-2 border-slate-200 dark:border-slate-600 pr-3">' + items + '</ul></details>';
+          }
+          return String(v);
+        };
+        output.innerHTML = build(value);
+      }
+
+      function action(kind) {
+        const text = input.value.trim();
+        if (!text) { showStatus('من فضلك أدخل JSON أولاً.', 'info'); return; }
+        const r = parseJson(text);
+        if (!r.ok) { output.textContent = ''; showStatus('❌ JSON غير صالح: ' + r.error, 'error'); return; }
+        computeStats(r.value, text);
+        if (kind === 'beautify') { output.textContent = JSON.stringify(r.value, null, getIndent()); showStatus('✅ تم التنسيق بنجاح.', 'ok'); }
+        else if (kind === 'minify') { output.textContent = JSON.stringify(r.value); showStatus('✅ تم الضغط بنجاح.', 'ok'); }
+        else if (kind === 'validate') { output.textContent = JSON.stringify(r.value, null, 2); showStatus('✅ JSON صالح ومنسق.', 'ok'); }
+        else if (kind === 'tree') { renderTree(r.value); showStatus('🌳 تم عرض الشجرة.', 'ok'); }
+        localStorage.setItem('jsoncraft-input', text);
+      }
+
+      document.querySelectorAll('.action-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const a = btn.getAttribute('data-action');
+          if (a === 'sample') { input.value = JSON.stringify(SAMPLE, null, 2); action('beautify'); }
+          else if (a === 'clear') { input.value = ''; output.textContent = ''; status.classList.add('hidden'); ['keys','items','depth','size'].forEach(k => stats[k].textContent = k === 'size' ? '0 B' : '0'); }
+          else action(a);
+        });
+      });
+
+      input.addEventListener('input', () => { $('input-stats').textContent = input.value.length + ' chars'; });
+
+      $('copy-btn').addEventListener('click', async () => {
+        const text = output.textContent || '';
+        if (!text) return;
+        try { await navigator.clipboard.writeText(text); showStatus('📋 تم النسخ إلى الحافظة.', 'ok'); }
+        catch { showStatus('تعذر النسخ.', 'error'); }
+      });
+
+      $('download-btn').addEventListener('click', () => {
+        const text = output.textContent || '';
+        if (!text) return;
+        const blob = new Blob([text], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'output.json';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showStatus('⬇️ تم تنزيل الملف.', 'ok');
+      });
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('jsoncraft-theme', isDark ? 'dark' : 'light');
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+      });
+      if (document.documentElement.classList.contains('dark')) themeIcon.textContent = '☀️';
+
+      const saved = localStorage.getItem('jsoncraft-input');
+      if (saved) { input.value = saved; $('input-stats').textContent = saved.length + ' chars'; }
+    })();
+  </script>
+</body>
+</html>
