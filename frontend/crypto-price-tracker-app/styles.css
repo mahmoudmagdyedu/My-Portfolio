@@ -1,0 +1,180 @@
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #6366f1;
+  --primary-strong: #4338ca;
+  --green: #16a34a;
+  --red: #dc2626;
+  --shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --radius: 14px;
+}
+
+[data-theme='dark'] {
+  --bg: #0b1120;
+  --surface: #111c34;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --primary: #818cf8;
+  --primary-strong: #6366f1;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.25s, color 0.25s;
+}
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+.hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+  color: #fff;
+  padding: 28px 0 32px;
+  box-shadow: var(--shadow);
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand { display: flex; align-items: center; gap: 14px; }
+.logo {
+  font-size: 38px;
+  background: rgba(255, 255, 255, 0.15);
+  width: 60px; height: 60px;
+  border-radius: 16px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.brand h1 { margin: 0; font-size: 1.75rem; font-weight: 900; letter-spacing: -0.5px; }
+.brand p { margin: 4px 0 0; opacity: 0.85; font-size: 0.92rem; }
+
+.hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-actions select,
+.hero-actions button {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.hero-actions select:hover,
+.hero-actions button:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+.hero-actions select option { color: #0f172a; }
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  margin: 24px 0 14px;
+}
+.toolbar input,
+.toolbar select,
+.toolbar button {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font: inherit;
+}
+.toolbar input { width: 100%; }
+.toolbar button { cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+.toolbar button[aria-pressed='true'] {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.sort { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.9rem; }
+
+.status {
+  margin: 8px 0 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.table-wrap {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.crypto-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  min-width: 720px;
+}
+.crypto-table th,
+.crypto-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.crypto-table thead th {
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  font-weight: 700;
+  color: var(--text);
+  position: sticky; top: 0;
+}
+.crypto-table tbody tr:hover { background: color-mix(in srgb, var(--primary) 6%, transparent); }
+
+.coin {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.coin img { width: 26px; height: 26px; border-radius: 50%; }
+.coin .symbol { color: var(--muted); text-transform: uppercase; font-size: 0.8rem; }
+
+.price { font-weight: 700; }
+.change-up { color: var(--green); font-weight: 700; }
+.change-down { color: var(--red); font-weight: 700; }
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--muted);
+  transition: transform 0.15s;
+}
+.fav-btn.active { color: #f59e0b; }
+.fav-btn:hover { transform: scale(1.15); }
+
+.footer-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 28px 0 36px;
+}
+.footer-note a { color: var(--primary); text-decoration: none; }
+.footer-note a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .toolbar { grid-template-columns: 1fr; }
+  .brand h1 { font-size: 1.4rem; }
+  .hero-actions { width: 100%; justify-content: flex-end; }
+}
