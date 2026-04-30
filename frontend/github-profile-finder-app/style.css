@@ -1,0 +1,25 @@
+/* GitHubLens — Custom styles supplementing Tailwind */
+:root { color-scheme: light dark; }
+body { font-family: 'Cairo', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+.font-cairo { font-family: 'Cairo', system-ui, sans-serif; }
+
+/* Smooth scroll & focus ring polish */
+html { scroll-behavior: smooth; }
+:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; border-radius: 6px; }
+
+/* Repo card description: 2-line clamp fallback */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Avatar gentle entrance */
+#profileAvatar { transition: transform .35s ease, box-shadow .35s ease; }
+#profileAvatar:hover { transform: scale(1.04); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
