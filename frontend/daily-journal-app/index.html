@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>JournalFlow — يوميّاتي 📓</title>
+	<meta name="description" content="تطبيق يوميات شخصي مع حالة مزاجية وتاجات وبحث فوري" />
+	<meta name="theme-color" content="#4338ca" />
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen">
+
+	<header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-8 shadow-lg">
+		<div class="max-w-3xl mx-auto px-4 flex items-center justify-between">
+			<div>
+				<h1 class="text-2xl sm:text-3xl font-black flex items-center gap-2">📓 JournalFlow</h1>
+				<p class="text-indigo-100 text-sm mt-1">يوميّاتك في مكان واحد</p>
+			</div>
+			<button id="themeBtn" class="bg-white/15 hover:bg-white/25 px-4 py-2 rounded-full text-sm font-bold border border-white/20" aria-label="تبديل الوضع">🌙</button>
+		</div>
+	</header>
+
+	<main class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+
+		<section class="bg-white dark:bg-slate-800 rounded-2xl shadow p-5 border border-slate-100 dark:border-slate-700">
+			<h2 class="font-black text-lg mb-3">✏️ تدوينة جديدة</h2>
+			<input id="title" type="text" placeholder="العنوان" class="w-full mb-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:outline-none" />
+			<textarea id="content" placeholder="ماذا حدث اليوم؟" rows="4" class="w-full mb-2 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:outline-none"></textarea>
+			<div class="flex flex-wrap items-center gap-2 mb-2">
+				<span class="text-sm text-slate-500 dark:text-slate-400">حالتك:</span>
+				<div id="moodPicker" class="flex gap-1 flex-wrap">
+					<button data-mood="😊" class="mood-btn px-3 py-1 rounded-full border">😊</button>
+					<button data-mood="😐" class="mood-btn px-3 py-1 rounded-full border">😐</button>
+					<button data-mood="😢" class="mood-btn px-3 py-1 rounded-full border">😢</button>
+					<button data-mood="⚡" class="mood-btn px-3 py-1 rounded-full border">⚡</button>
+					<button data-mood="🧘" class="mood-btn px-3 py-1 rounded-full border">🧘</button>
+				</div>
+			</div>
+			<input id="tags" type="text" placeholder="تاجات (مفصولة بفواصل)" class="w-full mb-3 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 dark:bg-slate-700 focus:outline-none" />
+			<div class="flex flex-wrap gap-2">
+				<button id="saveBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2 rounded-lg">💾 حفظ</button>
+				<button id="exportBtn" class="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 px-5 py-2 rounded-lg font-bold">📤 تصدير</button>
+				<label class="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 px-5 py-2 rounded-lg font-bold cursor-pointer">📥 استيراد<input id="importInput" type="file" accept="application/json" class="hidden" /></label>
+			</div>
+		</section>
+
+		<section>
+			<input id="search" type="search" placeholder="🔍 ابحث في تدويناتك…" class="w-full mb-4 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-600 dark:bg-slate-800 focus:outline-none" />
+			<div id="entries" class="space-y-3"></div>
+			<p id="empty" class="text-center text-slate-400 py-12 hidden">لا توجد تدوينات بعد. ابدأ بكتابة أول تدوينة! ✨</p>
+		</section>
+
+	</main>
+
+	<footer class="text-center text-xs text-slate-400 py-6">© 2026 JournalFlow · جزء من <a href="../../" class="underline hover:text-indigo-500">My-Portfolio</a></footer>
+
+	<script>
+		const $ = (id) => document.getElementById(id);
+		const STORAGE_KEY = 'journalflow_entries_v1';
+		let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+		let mood = '';
+
+		if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+		$('themeBtn').onclick = () => {
+			document.documentElement.classList.toggle('dark');
+			localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+		};
+
+		document.querySelectorAll('.mood-btn').forEach(b => {
+			b.onclick = () => {
+				document.querySelectorAll('.mood-btn').forEach(x => x.classList.remove('bg-indigo-600','text-white','border-indigo-600'));
+				b.classList.add('bg-indigo-600','text-white','border-indigo-600');
+				mood = b.dataset.mood;
+			};
+		});
+
+		function save() {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+			render();
+		}
+
+		function escapeHtml(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+		function render() {
+			const q = $('search').value.trim().toLowerCase();
+			const list = entries
+				.filter(e => !q || (e.title||'').toLowerCase().includes(q) || (e.content||'').toLowerCase().includes(q) || (e.tags||[]).some(t => String(t).toLowerCase().includes(q)))
+				.sort((a,b) => b.id - a.id);
+			$('entries').innerHTML = list.map(e => `
+				<article class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-4 shadow-sm">
+					<div class="flex items-start justify-between mb-1">
+						<h3 class="font-black text-slate-800 dark:text-white">${e.mood || ''} ${escapeHtml(e.title || '(بدون عنوان)')}</h3>
+						<button onclick="del(${e.id})" class="text-red-500 hover:text-red-700 text-sm">حذف</button>
+					</div>
+					<p class="text-xs text-slate-400 mb-2">${new Date(e.id).toLocaleString('ar-EG')}</p>
+					<p class="text-slate-600 dark:text-slate-300 text-sm whitespace-pre-wrap">${escapeHtml(e.content || '')}</p>
+					<div class="flex flex-wrap gap-1.5 mt-2">
+						${(e.tags||[]).map(t => `<span class="text-[11px] bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded-full">#${escapeHtml(t)}</span>`).join('')}
+					</div>
+				</article>`).join('');
+			$('empty').classList.toggle('hidden', list.length > 0);
+		}
+
+		window.del = (id) => {
+			if (!confirm('حذف هذه التدوينة؟')) return;
+			entries = entries.filter(e => e.id !== id);
+			save();
+		};
+
+		$('saveBtn').onclick = () => {
+			const title = $('title').value.trim();
+			const content = $('content').value.trim();
+			if (!title && !content) { alert('اكتب عنوانًا أو محتوى أولًا.'); return; }
+			const tags = $('tags').value.split(',').map(t => t.trim()).filter(Boolean);
+			entries.push({ id: Date.now(), title, content, mood, tags });
+			$('title').value = ''; $('content').value = ''; $('tags').value = '';
+			document.querySelectorAll('.mood-btn').forEach(x => x.classList.remove('bg-indigo-600','text-white','border-indigo-600'));
+			mood = '';
+			save();
+		};
+
+		$('search').oninput = render;
+
+		$('exportBtn').onclick = () => {
+			const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+			const a = document.createElement('a');
+			a.href = URL.createObjectURL(blob);
+			a.download = 'journalflow-export.json';
+			a.click();
+			URL.revokeObjectURL(a.href);
+		};
+
+		$('importInput').onchange = (ev) => {
+			const file = ev.target.files[0];
+			if (!file) return;
+			const r = new FileReader();
+			r.onload = () => {
+				try {
+					const arr = JSON.parse(r.result);
+					if (!Array.isArray(arr)) throw new Error('not array');
+					entries = entries.concat(arr.filter(e => e && e.id));
+					save();
+					alert('تم الاستيراد بنجاح ✅');
+				} catch { alert('ملف غير صالح ❌'); }
+			};
+			r.readAsText(file);
+		};
+
+		render();
+	</script>
+</body>
+</html>
