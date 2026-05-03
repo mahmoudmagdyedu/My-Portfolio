@@ -15,7 +15,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link rel="preload" as="image" href="assets/photo.jpg" />
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
   <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'}}}}}</script>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" /></noscript>
   <style>
@@ -289,7 +292,6 @@
   <footer class="gradient-hero text-white mt-4 sm:mt-6"><div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 text-center"><p class="text-primary-200 text-xs sm:text-sm">© 2025 محمود مجدي — Full Stack Developer</p><p class="text-primary-300 text-xs mt-1">الإسكندرية، مصر</p></div></footer>
 
 <script>
-if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');
 function saveContact(){var vcard='BEGIN:VCARD\nVERSION:3.0\nFN:Mahmoud Magdy\nN:Magdy;Mahmoud;;;\nTEL;TYPE=CELL:+201228086441\nEMAIL:mahmoudmagdy@mail.com\nADR;TYPE=HOME:;;Alexandria;;Egypt\nTITLE:Full Stack Developer\nEND:VCARD';var blob=new Blob([vcard],{type:'text/vcard;charset=utf-8'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='Mahmoud_Magdy.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
 </script>
 </body>
