@@ -6,7 +6,9 @@
 	<title>JournalFlow — يوميّاتي 📓</title>
 	<meta name="description" content="تطبيق يوميات شخصي مع حالة مزاجية وتاجات وبحث فوري" />
 	<meta name="theme-color" content="#4338ca" />
+	<script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script>tailwind.config = { darkMode: 'class' };</script>
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen">
@@ -61,10 +63,15 @@
 		let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 		let mood = '';
 
-		if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+		function syncThemeIcon() {
+			const isDark = document.documentElement.classList.contains('dark');
+			$('themeBtn').textContent = isDark ? '☀️' : '🌙';
+		}
+		syncThemeIcon();
 		$('themeBtn').onclick = () => {
 			document.documentElement.classList.toggle('dark');
 			localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+			syncThemeIcon();
 		};
 
 		document.querySelectorAll('.mood-btn').forEach(b => {
