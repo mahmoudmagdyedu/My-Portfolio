@@ -95,7 +95,7 @@
   <header class="gradient-hero text-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
       <div class="flex justify-start pt-4 sm:pt-6">
-        <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="dark-toggle" aria-label="تبديل الوضع">🌙 <span>الوضع الداكن</span></button>
+        <button id="darkToggle" type="button" class="dark-toggle" aria-label="تبديل الوضع"><span class="dark-toggle-icon">🌙</span> <span class="dark-toggle-text">الوضع الداكن</span></button>
       </div>
       <div class="text-center pb-12 sm:pb-20 pt-6 sm:pt-10">
         <img src="assets/photo.jpg" alt="محمود مجدي" width="128" height="128" fetchpriority="high" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white/30 shadow-2xl" onerror="this.style.display='none';document.getElementById('avatar-fallback').style.display='flex'" />
@@ -127,7 +127,7 @@
       <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3" dir="ltr">
         <a href="/frontend/?skill=html" class="skill-badge bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 text-orange-700 dark:text-orange-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/html5.svg" alt="HTML5" class="w-9 h-9" width="36" height="36" /></div><div class="font-bold text-xs sm:text-sm">HTML</div></a>
         <a href="/frontend/?skill=css" class="skill-badge bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/css3.svg" alt="CSS3" class="w-9 h-9" width="36" height="36" /></div><div class="font-bold text-xs sm:text-sm">CSS</div></a>
-        <a href="/frontend/?skill=javascript" class="skill-badge bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/javascript.svg" alt="JavaScript" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">JavaScript</div></a>
+        <a href="/frontend/?skill=javascript" class="skill-badge bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-900/40 text-yellow-700 dark:text-yellow-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/javascript.svg" alt="JavaScript" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">JavaScript</div></a>
         <a href="/frontend/?skill=typescript" class="skill-badge bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/typescript.svg" alt="TypeScript" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">TypeScript</div></a>
         <a href="/frontend/?skill=angular" class="skill-badge bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/angular.svg" alt="Angular" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">Angular</div></a>
         <a href="/backend/" class="skill-badge bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/dotnet.svg" alt=".NET" class="w-9 h-9" width="36" height="36" /></div><div class="font-bold text-xs sm:text-sm">.NET</div></a>
@@ -332,7 +332,7 @@
     <section class="section-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-5 sm:p-8">
       <h2 class="text-xl sm:text-2xl font-black text-primary-700 dark:text-primary-400 mb-4 sm:mb-6 flex items-center gap-2"><span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>التواصل</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-        <a href="#" onclick="saveContact(); return false;" class="flex items-center gap-3 bg-slate-50 dark:bg-slate-700 hover:bg-primary-50 dark:hover:bg-slate-600 border border-slate-100 dark:border-slate-600 rounded-xl p-3 sm:p-4 transition-colors group"><span class="text-xl sm:text-2xl shrink-0">📞</span><div class="min-w-0"><p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">الهاتف — اضغط للحفظ</p><p class="font-bold text-slate-800 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors text-sm sm:text-base truncate" dir="ltr">+201228086441</p></div></a>
+        <a href="#" id="saveContactLink" class="flex items-center gap-3 bg-slate-50 dark:bg-slate-700 hover:bg-primary-50 dark:hover:bg-slate-600 border border-slate-100 dark:border-slate-600 rounded-xl p-3 sm:p-4 transition-colors group"><span class="text-xl sm:text-2xl shrink-0">📞</span><div class="min-w-0"><p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">الهاتف — اضغط للحفظ</p><p class="font-bold text-slate-800 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors text-sm sm:text-base truncate" dir="ltr">+201228086441</p></div></a>
         <a href="mailto:mahmoudmagdy@mail.com" class="flex items-center gap-3 bg-slate-50 dark:bg-slate-700 hover:bg-primary-50 dark:hover:bg-slate-600 border border-slate-100 dark:border-slate-600 rounded-xl p-3 sm:p-4 transition-colors group"><span class="text-xl sm:text-2xl shrink-0">✉️</span><div class="min-w-0"><p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">البريد الإلكتروني</p><p class="font-bold text-slate-800 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors text-sm sm:text-base truncate" dir="ltr">mahmoudmagdy@mail.com</p></div></a>
         <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-700 border border-slate-100 dark:border-slate-600 rounded-xl p-3 sm:p-4"><span class="text-xl sm:text-2xl shrink-0">📍</span><div><p class="text-xs text-slate-500 dark:text-slate-400 mb-0.5">العنوان</p><p class="font-bold text-slate-800 dark:text-white text-sm sm:text-base">الإسكندرية، مصر</p></div></div>
       </div>
@@ -343,7 +343,56 @@
   <footer class="gradient-hero text-white mt-4 sm:mt-6"><div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 text-center"><p class="text-primary-200 text-xs sm:text-sm">© 2025 محمود مجدي — Full Stack Developer</p><p class="text-primary-300 text-xs mt-1">الإسكندرية، مصر</p></div></footer>
 
 <script>
-function saveContact(){var vcard='BEGIN:VCARD\nVERSION:3.0\nFN:Mahmoud Magdy\nN:Magdy;Mahmoud;;;\nTEL;TYPE=CELL:+201228086441\nEMAIL:mahmoudmagdy@mail.com\nADR;TYPE=HOME:;;Alexandria;;Egypt\nTITLE:Full Stack Developer\nEND:VCARD';var blob=new Blob([vcard],{type:'text/vcard;charset=utf-8'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='Mahmoud_Magdy.vcf';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+(function(){
+  function applyTheme(isDark){
+    var html = document.documentElement;
+    var body = document.body;
+    if(isDark){
+      html.classList.add('dark');
+      // Hard fallback: directly set inline body styles so dark mode applies even if CSS overrides fail.
+      body.style.backgroundColor = '#0f172a';
+      body.style.color = '#f1f5f9';
+    } else {
+      html.classList.remove('dark');
+      body.style.backgroundColor = '';
+      body.style.color = '';
+    }
+    var icon = document.querySelector('.dark-toggle-icon');
+    var text = document.querySelector('.dark-toggle-text');
+    if(icon) icon.textContent = isDark ? '☀️' : '🌙';
+    if(text) text.textContent = isDark ? 'الوضع الفاتح' : 'الوضع الداكن';
+    try{ console.log('[theme] applied:', isDark ? 'dark' : 'light'); }catch(e){}
+  }
+  function isDarkNow(){ return document.documentElement.classList.contains('dark'); }
+  // Sync inline body styles + button label with current state on load.
+  applyTheme(localStorage.getItem('theme') === 'dark' || isDarkNow());
+  var btn = document.getElementById('darkToggle');
+  if(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var nextDark = !isDarkNow();
+      applyTheme(nextDark);
+      try{ localStorage.setItem('theme', nextDark ? 'dark' : 'light'); }catch(err){}
+    });
+    try{ console.log('[theme] toggle wired up'); }catch(e){}
+  } else {
+    try{ console.warn('[theme] #darkToggle not found'); }catch(e){}
+  }
+  // saveContact handler for the phone link
+  var contactLink = document.getElementById('saveContactLink');
+  if(contactLink){
+    contactLink.addEventListener('click', function(e){
+      e.preventDefault();
+      var vcard='BEGIN:VCARD\nVERSION:3.0\nFN:Mahmoud Magdy\nN:Magdy;Mahmoud;;;\nTEL;TYPE=CELL:+201228086441\nEMAIL:mahmoudmagdy@mail.com\nADR;TYPE=HOME:;;Alexandria;;Egypt\nTITLE:Full Stack Developer\nEND:VCARD';
+      var blob=new Blob([vcard],{type:'text/vcard;charset=utf-8'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');
+      a.href=url; a.download='Mahmoud_Magdy.vcf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+})();
 </script>
 </body>
 </html>
