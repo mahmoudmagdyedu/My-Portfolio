@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Mahmoud Magdy - Full Stack Developer Portfolio & Projects Monorepo",
   "scripts": {
-    "build": "npx tailwindcss -i input.css -o styles.css --minify",
+    "build": "npx --yes tailwindcss@3.4.17 -i input.css -o styles.css --minify",
     "start": "node server.js"
   },
   "engines": {

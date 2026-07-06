@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>محمود مجدي | Full Stack Developer</title>
-  <meta name="description" content="محمود مجدي - مطوّر Full Stack متخصص في تطوير الواجهات الأمامية والخلفية باستخدام Angular و .NET و TypeScript" />
+  <meta name="description" content="محمود مجدي - مطوّر Full Stack يبني واجهات وتجارب ويب حديثة باستخدام JavaScript و TypeScript و React و Next.js و Node.js" />
   <meta name="theme-color" content="#312e81" />
   <link rel="shortcut icon" href="/assets/icons/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png" />
@@ -22,9 +22,11 @@
   <style>
     @font-face { font-family: 'Cairo Fallback'; src: local('Arial'); ascent-override: 102%; descent-override: 42%; line-gap-override: 0%; size-adjust: 97%; }
     body { font-family: 'Cairo', 'Cairo Fallback', sans-serif; }
-    .gradient-hero { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%); }
-    .skill-badge { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; text-decoration: none; display: block; }
+    .gradient-hero { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 42%, #0f766e 100%); }
+    .skill-badge { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; text-decoration: none; display: flex; align-items: center; gap: 0.75rem; min-height: 76px; }
     .skill-badge:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(99,102,241,0.35); }
+    .skill-mark { width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 900; font-size: 0.78rem; letter-spacing: 0; }
+    .skill-group-label { letter-spacing: 0; }
     .section-card { transition: box-shadow 0.2s; }
     .section-card:hover { box-shadow: 0 8px 32px rgba(99,102,241,0.12); }
     .project-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
@@ -92,14 +94,15 @@
         <img src="assets/photo.jpg" alt="محمود مجدي" width="128" height="128" fetchpriority="high" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-white/30 shadow-2xl" onerror="this.style.display='none';document.getElementById('avatar-fallback').style.display='flex'" />
         <div id="avatar-fallback" class="animate-fade-in-up mx-auto mb-5 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary-400 items-center justify-center text-4xl sm:text-5xl font-black border-4 border-white/30 shadow-2xl select-none" style="display:none">م</div>
         <h1 class="animate-fade-in-up delay-100 text-3xl sm:text-4xl md:text-5xl font-black mb-2 tracking-tight">محمود مجدي</h1>
-        <p class="animate-fade-in-up delay-200 text-primary-200 text-lg sm:text-xl md:text-2xl font-semibold mb-5">Full Stack Developer</p>
+        <p class="animate-fade-in-up delay-200 text-primary-200 text-lg sm:text-xl md:text-2xl font-semibold mb-5">Full Stack JavaScript Developer</p>
         <div class="animate-fade-in-up delay-300 flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
           <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">📍 الإسكندرية، مصر</span>
           <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">🎂 25 سنة</span>
-          <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">Full Stack</span>
+          <span class="flex items-center gap-1.5 bg-white/10 backdrop-blur px-3 sm:px-4 py-1.5 rounded-full border border-white/20 whitespace-nowrap">React · Next.js · Node.js</span>
         </div>
         <div class="animate-fade-in-up delay-400 mt-7">
-          <a href="mailto:mahmoudmagdy@mail.com" class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full shadow-lg hover:bg-primary-50 transition-colors text-base sm:text-lg">✉️ تواصل الآن</a>
+          <a href="#portfolio-projects-grid" class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full shadow-lg hover:bg-primary-50 transition-colors text-base sm:text-lg">استعرض الأعمال</a>
+          <a href="mailto:mahmoudmagdy@mail.com" class="mt-3 sm:mt-0 sm:mr-3 inline-flex items-center gap-2 bg-white/10 text-white font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/25 hover:bg-white/20 transition-colors text-base sm:text-lg">تواصل الآن</a>
         </div>
       </div>
     </div>
@@ -107,25 +110,60 @@
   <main class="max-w-4xl mx-auto px-3 sm:px-6 py-8 sm:py-14 space-y-6 sm:space-y-10">
     <section class="section-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-5 sm:p-8">
       <h2 class="text-xl sm:text-2xl font-black text-primary-700 dark:text-primary-400 mb-3 sm:mb-4 flex items-center gap-2"><span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>نبذة عني</h2>
-      <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">مطوّر Full Stack شغوف بتقنيات الويب الحديثة، أجمع بين مهارات تطوير الواجهات الأمامية والخلفية لبناء تطبيقات متكاملة وعالية الأداء. خريج كلية الحقوق جامعة الإسكندرية.أسعى دائماً إلى تقديم حلول برمجية إبداعية تلبي احتياجات المستخدمين.</p>
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">مطوّر Full Stack أركز على بناء واجهات سريعة وتجارب استخدام واضحة، مع Back-End عملي باستخدام Node.js و Express.js وقواعد بيانات SQL و NoSQL. أعمل بمنهجية منتظمة من الفكرة إلى النشر، وأهتم بالأداء، قابلية الصيانة، وتجربة المستخدم في كل مشروع.</p>
     </section>
     <section class="section-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-5 sm:p-8">
-      <h2 class="text-xl sm:text-2xl font-black text-primary-700 dark:text-primary-400 mb-4 sm:mb-6 flex items-center gap-2"><span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>المهارات التقنية</h2>
-      <p class="text-slate-500 dark:text-slate-400 text-xs mb-3 sm:mb-4">اضغط على أي مهارة لعرض المشاريع الخاصة بها ↗</p>
-      <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3" dir="ltr">
-        <a href="/frontend/?skill=html" class="skill-badge bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 text-orange-700 dark:text-orange-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/html5.svg" alt="HTML5" class="w-9 h-9" width="36" height="36" /></div><div class="font-bold text-xs sm:text-sm">HTML</div></a>
-        <a href="/frontend/?skill=css" class="skill-badge bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/css3.svg" alt="CSS3" class="w-9 h-9" width="36" height="36" /></div><div class="font-bold text-xs sm:text-sm">CSS</div></a>
-        <a href="/frontend/?skill=javascript" class="skill-badge bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-900/40 text-yellow-700 dark:text-yellow-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/javascript.svg" alt="JavaScript" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">JavaScript</div></a>
-        <a href="/frontend/?skill=typescript" class="skill-badge bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/typescript.svg" alt="TypeScript" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">TypeScript</div></a>
-        <a href="/frontend/?skill=angular" class="skill-badge bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/angular.svg" alt="Angular" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">Angular</div></a>
-        <a href="/backend/" class="skill-badge bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/dotnet.svg" alt=".NET" class="w-9 h-9" width="36" height="36" /></div><div class="font-bold text-xs sm:text-sm">.NET</div></a>
-        <a href="/backend/" class="skill-badge bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-400 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/csharp.svg" alt="C#" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">C#</div></a>
-        <a href="/backend/" class="skill-badge bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-center"><div class="mb-1 flex justify-center"><img src="/assets/icons/skills/linux.svg" alt="Linux" class="w-7 h-7" width="28" height="28" /></div><div class="font-bold text-xs sm:text-sm">Linux Admin</div></a>
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5 sm:mb-7">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-black text-primary-700 dark:text-primary-400 mb-2 flex items-center gap-2"><span class="w-1.5 h-7 bg-primary-500 rounded-full inline-block shrink-0"></span>المهارات التقنية</h2>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Full Stack JavaScript stack لبناء واجهات احترافية، APIs عملية، وقواعد بيانات قابلة للتوسع.</p>
+        </div>
+        <span class="inline-flex self-start whitespace-nowrap rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-4 py-2 text-xs font-black" dir="ltr">13 Core Skills</span>
       </div>
-      <div class="mt-4 sm:mt-6 flex flex-wrap gap-2">
-        <span class="text-xs font-semibold bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-400 px-2.5 py-1 rounded-full">Frontend: HTML · CSS · JS · TS · Angular</span>
-        <span class="text-xs font-semibold bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-400 px-2.5 py-1 rounded-full">Backend: .NET · C#</span>
-        <span class="text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-full">DevOps: Linux</span>
+      <div class="space-y-5" dir="ltr">
+        <div>
+          <h3 class="skill-group-label text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-2">Frontend Core</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            <div class="skill-badge rounded-xl border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20 p-3"><span class="skill-mark bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300">HTML</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">HTML</span><span class="block text-xs text-slate-500 dark:text-slate-400">Semantic structure</span></span></div>
+            <div class="skill-badge rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 p-3"><span class="skill-mark bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">CSS</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">CSS</span><span class="block text-xs text-slate-500 dark:text-slate-400">Responsive UI</span></span></div>
+            <div class="skill-badge rounded-xl border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 p-3"><span class="skill-mark bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300">JS</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">JavaScript</span><span class="block text-xs text-slate-500 dark:text-slate-400">Browser logic</span></span></div>
+            <div class="skill-badge rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-900/20 p-3"><span class="skill-mark bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300">TS</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">TypeScript</span><span class="block text-xs text-slate-500 dark:text-slate-400">Typed apps</span></span></div>
+          </div>
+        </div>
+        <div>
+          <h3 class="skill-group-label text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-2">UI Styling</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            <div class="skill-badge rounded-xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/20 p-3"><span class="skill-mark bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300">B</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">Bootstrap</span><span class="block text-xs text-slate-500 dark:text-slate-400">Fast layouts</span></span></div>
+            <div class="skill-badge rounded-xl border border-cyan-200 dark:border-cyan-800 bg-cyan-50 dark:bg-cyan-900/20 p-3"><span class="skill-mark bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-300">TW</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">Tailwind</span><span class="block text-xs text-slate-500 dark:text-slate-400">Design systems</span></span></div>
+          </div>
+        </div>
+        <div>
+          <h3 class="skill-group-label text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-2">App Frameworks</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            <div class="skill-badge rounded-xl border border-sky-200 dark:border-sky-800 bg-sky-50 dark:bg-sky-900/20 p-3"><span class="skill-mark bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300">R</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">React.js</span><span class="block text-xs text-slate-500 dark:text-slate-400">Component UI</span></span></div>
+            <div class="skill-badge rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 p-3"><span class="skill-mark bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-100">N</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">Next.js</span><span class="block text-xs text-slate-500 dark:text-slate-400">Production web</span></span></div>
+          </div>
+        </div>
+        <div>
+          <h3 class="skill-group-label text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-2">Backend</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            <div class="skill-badge rounded-xl border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-3"><span class="skill-mark bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300">Node</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">Node.js</span><span class="block text-xs text-slate-500 dark:text-slate-400">Server runtime</span></span></div>
+            <div class="skill-badge rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 p-3"><span class="skill-mark bg-zinc-200 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-100">EX</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">Express.js</span><span class="block text-xs text-slate-500 dark:text-slate-400">REST APIs</span></span></div>
+          </div>
+        </div>
+        <div>
+          <h3 class="skill-group-label text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-2">Databases</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            <div class="skill-badge rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-3"><span class="skill-mark bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">SQL</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">MySQL</span><span class="block text-xs text-slate-500 dark:text-slate-400">Relational data</span></span></div>
+            <div class="skill-badge rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 p-3"><span class="skill-mark bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">MDB</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">MongoDB</span><span class="block text-xs text-slate-500 dark:text-slate-400">Document data</span></span></div>
+          </div>
+        </div>
+        <div>
+          <h3 class="skill-group-label text-xs font-black uppercase text-slate-400 dark:text-slate-500 mb-2">DevOps</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3">
+            <div class="skill-badge rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 p-3"><span class="skill-mark bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">DKR</span><span><span class="block font-black text-sm text-slate-800 dark:text-white">Docker</span><span class="block text-xs text-slate-500 dark:text-slate-400">Containerized apps</span></span></div>
+          </div>
+        </div>
       </div>
     </section>
     <section class="section-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-5 sm:p-8">
