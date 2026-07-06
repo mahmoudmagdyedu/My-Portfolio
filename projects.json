@@ -1,5 +1,22 @@
 [
   {
+    "slug": "notes-api",
+    "name": "Notes API",
+    "tagline": "Notes API",
+    "description": "Node.js + Express REST API for creating, updating, archiving, and deleting personal notes with JSON-file persistence.",
+    "emoji": "\uD83D\uDCDD",
+    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "REST API",
+      "JSON"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/notes-api",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/notes-api",
+    "category": "backend"
+  },
+  {
     "slug": "bookmarks-api",
     "name": "BookmarkVault API",
     "tagline": "Bookmarks API",
