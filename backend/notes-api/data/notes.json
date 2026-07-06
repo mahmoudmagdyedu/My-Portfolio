@@ -1,0 +1,26 @@
+[
+  {
+    "id": "note-1",
+    "title": "Sprint planning",
+    "body": "Review backlog priorities and confirm delivery risks before the next sprint starts.",
+    "tags": [
+      "planning",
+      "team"
+    ],
+    "archived": false,
+    "createdAt": "2026-07-06T09:00:00.000Z",
+    "updatedAt": "2026-07-06T09:00:00.000Z"
+  },
+  {
+    "id": "note-2",
+    "title": "API follow-up",
+    "body": "Document request validation rules and add examples for consumers.",
+    "tags": [
+      "api",
+      "docs"
+    ],
+    "archived": false,
+    "createdAt": "2026-07-06T09:15:00.000Z",
+    "updatedAt": "2026-07-06T09:15:00.000Z"
+  }
+]

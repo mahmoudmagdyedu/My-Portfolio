@@ -1,0 +1,22 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "A small Express API for managing personal notes.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "notes",
+    "rest-api"
+  ],
+  "author": "Mahmoud Magdy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
