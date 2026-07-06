@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "slug": "bookmarks-api",
+    "name": "BookmarkVault API",
+    "tagline": "Bookmarks API",
+    "description": "Node.js + Express REST API for saving, tagging, updating, and deleting personal bookmarks with JSON-file persistence.",
+    "emoji": "\uD83D\uDD16",
+    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "REST API",
+      "JSON"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/bookmarks-api",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/bookmarks-api",
+    "category": "backend"
+  }
+]
