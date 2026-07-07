@@ -1,5 +1,22 @@
 [
   {
+    "slug": "auth-starter-api",
+    "name": "Auth Starter API",
+    "tagline": "Express auth starter",
+    "description": "Node.js + Express starter API for registration, login, bearer-token profile access, logout, and JSON-file user persistence.",
+    "emoji": "\uD83D\uDD10",
+    "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "Auth",
+      "REST API"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/auth-starter-api",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/auth-starter-api",
+    "category": "backend"
+  },
+  {
     "slug": "notes-api",
     "name": "Notes API",
     "tagline": "Notes API",
