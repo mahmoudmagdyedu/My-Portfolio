@@ -1,5 +1,22 @@
 [
   {
+    "slug": "inventory-api",
+    "name": "Inventory API",
+    "tagline": "Stock tracking API",
+    "description": "Node.js + Express REST API for tracking products, quantities, reorder levels, and prices with search, low-stock filters, and JSON-file persistence.",
+    "emoji": "\uD83D\uDCE6",
+    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "REST API",
+      "JSON"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/inventory-api",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/inventory-api",
+    "category": "backend"
+  },
+  {
     "slug": "auth-starter-api",
     "name": "Auth Starter API",
     "tagline": "Express auth starter",
