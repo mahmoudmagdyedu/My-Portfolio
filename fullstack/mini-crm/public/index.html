@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini CRM</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, system-ui, sans-serif; color: #1e293b; background: #f1f5f9; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    header { background: #0f172a; color: white; padding: 2.5rem max(1rem, calc((100vw - 1050px) / 2)); }
+    header p { color: #cbd5e1; margin: .5rem 0 0; }
+    main { width: min(1050px, calc(100% - 2rem)); margin: 2rem auto; display: grid; gap: 1.25rem; }
+    .panel { background: white; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 12px 30px rgb(15 23 42 / 6%); }
+    h1, h2, h3, p { margin-top: 0; }
+    form, .filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+    label { display: grid; gap: .35rem; color: #475569; font-size: .85rem; font-weight: 700; }
+    input, select { width: 100%; border: 1px solid #cbd5e1; border-radius: .6rem; padding: .7rem; background: white; color: #0f172a; }
+    input:focus, select:focus { outline: 3px solid #bfdbfe; border-color: #2563eb; }
+    .primary { border: 0; border-radius: .6rem; padding: .75rem 1rem; background: #2563eb; color: white; font-weight: 800; align-self: end; }
+    .primary:hover { background: #1d4ed8; }
+    .filters { grid-template-columns: 2fr 1fr auto; align-items: end; margin-bottom: 1rem; }
+    #count { color: #64748b; font-weight: 700; padding-bottom: .7rem; white-space: nowrap; }
+    #contacts { display: grid; gap: .75rem; }
+    .contact { border: 1px solid #e2e8f0; border-radius: .8rem; padding: 1rem; display: grid; grid-template-columns: 1fr auto; gap: .75rem; align-items: center; }
+    .contact h3 { margin-bottom: .2rem; }
+    .contact p { margin-bottom: .25rem; color: #64748b; }
+    .contact a { color: #2563eb; }
+    .actions { display: flex; gap: .5rem; align-items: center; }
+    .actions select { width: auto; }
+    .delete { border: 0; border-radius: .5rem; padding: .65rem .8rem; background: #fee2e2; color: #b91c1c; font-weight: 800; }
+    .empty { color: #64748b; text-align: center; padding: 2rem; border: 1px dashed #cbd5e1; border-radius: .8rem; }
+    #message { min-height: 1.4rem; color: #047857; font-weight: 700; margin: .75rem 0 0; }
+    #message.error { color: #b91c1c; }
+    @media (max-width: 760px) {
+      form, .filters { grid-template-columns: 1fr; }
+      .contact { grid-template-columns: 1fr; }
+      .actions { align-items: stretch; flex-direction: column; }
+      .actions select { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mini CRM</h1>
+    <p>A focused customer pipeline for small teams.</p>
+  </header>
+
+  <main>
+    <section class="panel" aria-labelledby="add-title">
+      <h2 id="add-title">Add contact</h2>
+      <form id="contact-form">
+        <label>Name<input name="name" minlength="2" required></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Company<input name="company" minlength="2" required></label>
+        <button class="primary" type="submit">Add to pipeline</button>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="pipeline-title">
+      <h2 id="pipeline-title">Customer pipeline</h2>
+      <div class="filters">
+        <label>Search<input id="search" type="search" placeholder="Name, email, or company"></label>
+        <label>Stage
+          <select id="stage-filter">
+            <option value="">All stages</option>
+            <option value="lead">Lead</option>
+            <option value="qualified">Qualified</option>
+            <option value="proposal">Proposal</option>
+            <option value="customer">Customer</option>
+          </select>
+        </label>
+        <span id="count">0 contacts</span>
+      </div>
+      <div id="contacts" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector('#contact-form');
+    const message = document.querySelector('#message');
+    const search = document.querySelector('#search');
+    const stageFilter = document.querySelector('#stage-filter');
+    const count = document.querySelector('#count');
+    const contactsRoot = document.querySelector('#contacts');
+    const stageLabels = { lead: 'Lead', qualified: 'Qualified', proposal: 'Proposal', customer: 'Customer' };
+    let searchTimer;
+
+    function showMessage(text, isError = false) {
+      message.textContent = text;
+      message.classList.toggle('error', isError);
+    }
+
+    async function api(path, options) {
+      const response = await fetch(path, options);
+      if (response.status === 204) return null;
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error || body.errors?.join(', ') || 'Request failed');
+      return body;
+    }
+
+    function stageSelect(contact) {
+      const select = document.createElement('select');
+      select.setAttribute('aria-label', `Stage for ${contact.name}`);
+      Object.entries(stageLabels).forEach(([value, label]) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        option.selected = contact.stage === value;
+        select.append(option);
+      });
+      select.addEventListener('change', async () => {
+        try {
+          await api(`/api/contacts/${contact.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ stage: select.value })
+          });
+          showMessage(`${contact.name} moved to ${stageLabels[select.value]}.`);
+          await loadContacts();
+        } catch (error) {
+          showMessage(error.message, true);
+        }
+      });
+      return select;
+    }
+
+    function contactCard(contact) {
+      const card = document.createElement('article');
+      card.className = 'contact';
+
+      const details = document.createElement('div');
+      const heading = document.createElement('h3');
+      const company = document.createElement('p');
+      const email = document.createElement('a');
+      heading.textContent = contact.name;
+      company.textContent = contact.company;
+      email.href = `mailto:${contact.email}`;
+      email.textContent = contact.email;
+      details.append(heading, company, email);
+
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      const remove = document.createElement('button');
+      remove.className = 'delete';
+      remove.type = 'button';
+      remove.textContent = 'Delete';
+      remove.addEventListener('click', async () => {
+        if (!window.confirm(`Delete ${contact.name}?`)) return;
+        try {
+          await api(`/api/contacts/${contact.id}`, { method: 'DELETE' });
+          showMessage(`${contact.name} deleted.`);
+          await loadContacts();
+        } catch (error) {
+          showMessage(error.message, true);
+        }
+      });
+      actions.append(stageSelect(contact), remove);
+      card.append(details, actions);
+      return card;
+    }
+
+    async function loadContacts() {
+      const params = new URLSearchParams();
+      if (search.value.trim()) params.set('q', search.value.trim());
+      if (stageFilter.value) params.set('stage', stageFilter.value);
+
+      try {
+        const contacts = await api(`/api/contacts?${params}`);
+        contactsRoot.replaceChildren();
+        count.textContent = `${contacts.length} ${contacts.length === 1 ? 'contact' : 'contacts'}`;
+        if (contacts.length === 0) {
+          const empty = document.createElement('p');
+          empty.className = 'empty';
+          empty.textContent = 'No contacts match these filters.';
+          contactsRoot.append(empty);
+          return;
+        }
+        contacts.forEach((contact) => contactsRoot.append(contactCard(contact)));
+      } catch (error) {
+        contactsRoot.replaceChildren();
+        showMessage(error.message, true);
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      try {
+        await api('/api/contacts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        form.reset();
+        showMessage('Contact added to the pipeline.');
+        await loadContacts();
+      } catch (error) {
+        showMessage(error.message, true);
+      }
+    });
+
+    search.addEventListener('input', () => {
+      window.clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(loadContacts, 250);
+    });
+    stageFilter.addEventListener('change', loadContacts);
+    loadContacts();
+  </script>
+</body>
+</html>

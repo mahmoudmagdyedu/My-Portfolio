@@ -1,0 +1,22 @@
+{
+  "name": "mini-crm",
+  "version": "1.0.0",
+  "description": "A lightweight Express CRM for managing contacts and pipeline stages.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "crm",
+    "fullstack"
+  ],
+  "author": "Mahmoud Magdy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

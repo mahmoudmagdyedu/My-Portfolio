@@ -1,0 +1,22 @@
+[
+  {
+    "id": "8f342128-4a75-4a31-96c5-78c88a6f5eb2",
+    "name": "Amina Hassan",
+    "email": "amina@example.com",
+    "company": "Northstar Studio",
+    "stage": "proposal",
+    "notes": "Interested in a website redesign this quarter.",
+    "createdAt": "2026-07-01T09:30:00.000Z",
+    "updatedAt": "2026-07-08T13:15:00.000Z"
+  },
+  {
+    "id": "ad5ca3cb-c31e-47ed-a9d8-fc6d2cd00573",
+    "name": "Omar Nabil",
+    "email": "omar@example.com",
+    "company": "Clearpath Logistics",
+    "stage": "qualified",
+    "notes": "Needs a follow-up call about the support plan.",
+    "createdAt": "2026-07-03T11:00:00.000Z",
+    "updatedAt": "2026-07-06T15:40:00.000Z"
+  }
+]
