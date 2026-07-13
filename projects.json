@@ -1,5 +1,22 @@
 [
   {
+    "slug": "mini-crm",
+    "name": "Mini CRM",
+    "tagline": "Lightweight customer pipeline",
+    "description": "Node.js + Express mini CRM for managing contacts and sales opportunities through a simple dashboard with JSON-file persistence.",
+    "emoji": "\uD83E\uDD1D",
+    "image": "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "JavaScript",
+      "JSON"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/fullstack/mini-crm",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/fullstack/mini-crm",
+    "category": "fullstack"
+  },
+  {
     "slug": "inventory-api",
     "name": "Inventory API",
     "tagline": "Stock tracking API",
