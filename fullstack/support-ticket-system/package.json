@@ -1,0 +1,23 @@
+{
+  "name": "support-ticket-system",
+  "version": "1.0.0",
+  "description": "A lightweight Express help desk for tracking support tickets.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "support",
+    "helpdesk",
+    "fullstack"
+  ],
+  "author": "Mahmoud Magdy",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

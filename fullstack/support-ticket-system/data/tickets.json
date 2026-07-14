@@ -1,0 +1,22 @@
+[
+  {
+    "id": "73fdbe8f-5440-42b0-85ef-730ae09f97de",
+    "subject": "Unable to export monthly report",
+    "requesterEmail": "mona@example.com",
+    "description": "CSV export stops after preparing the file.",
+    "priority": "high",
+    "status": "open",
+    "createdAt": "2026-07-10T09:30:00.000Z",
+    "updatedAt": "2026-07-10T09:30:00.000Z"
+  },
+  {
+    "id": "b7b11a74-9fd6-47f4-beb2-f7c5008ea882",
+    "subject": "Update billing contact email",
+    "requesterEmail": "youssef@example.com",
+    "description": "Please send future invoices to the finance team inbox.",
+    "priority": "medium",
+    "status": "in-progress",
+    "createdAt": "2026-07-09T12:15:00.000Z",
+    "updatedAt": "2026-07-11T08:45:00.000Z"
+  }
+]

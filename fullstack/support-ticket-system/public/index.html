@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support Ticket System</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, system-ui, sans-serif; color: #172033; background: #f4f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    header { background: #172033; color: white; padding: 2.5rem max(1rem, calc((100vw - 1080px) / 2)); }
+    header p { color: #cbd5e1; margin: .5rem 0 0; }
+    main { width: min(1080px, calc(100% - 2rem)); margin: 2rem auto; display: grid; gap: 1.25rem; }
+    .panel { background: white; border: 1px solid #dfe4ee; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 12px 30px rgb(23 32 51 / 6%); }
+    h1, h2, h3, p { margin-top: 0; }
+    form { display: grid; grid-template-columns: 2fr 1.4fr 1fr; gap: .75rem; }
+    label { display: grid; gap: .35rem; color: #526078; font-size: .85rem; font-weight: 700; }
+    .description { grid-column: span 2; }
+    input, select, textarea { width: 100%; border: 1px solid #c9d1df; border-radius: .6rem; padding: .7rem; background: white; color: #172033; }
+    textarea { min-height: 78px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: 3px solid #c7d2fe; border-color: #4f46e5; }
+    .primary { border: 0; border-radius: .6rem; padding: .75rem 1rem; background: #4f46e5; color: white; font-weight: 800; align-self: end; }
+    .primary:hover { background: #4338ca; }
+    .filters { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: .75rem; align-items: end; margin-bottom: 1rem; }
+    #count { color: #64748b; font-weight: 700; padding-bottom: .7rem; white-space: nowrap; }
+    #tickets { display: grid; gap: .75rem; }
+    .ticket { border: 1px solid #dfe4ee; border-radius: .8rem; padding: 1rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; }
+    .ticket h3 { margin-bottom: .35rem; }
+    .ticket p { margin-bottom: .35rem; color: #64748b; }
+    .ticket a { color: #4f46e5; }
+    .meta { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+    .badge { border-radius: 999px; padding: .25rem .55rem; font-size: .75rem; font-weight: 800; text-transform: capitalize; }
+    .low { background: #dcfce7; color: #166534; }
+    .medium { background: #fef3c7; color: #92400e; }
+    .high { background: #fee2e2; color: #b91c1c; }
+    .actions { display: flex; gap: .5rem; align-items: center; }
+    .actions select { width: auto; }
+    .delete { border: 0; border-radius: .5rem; padding: .65rem .8rem; background: #fee2e2; color: #b91c1c; font-weight: 800; }
+    .empty { color: #64748b; text-align: center; padding: 2rem; border: 1px dashed #c9d1df; border-radius: .8rem; }
+    #message { min-height: 1.4rem; color: #047857; font-weight: 700; margin: .75rem 0 0; }
+    #message.error { color: #b91c1c; }
+    @media (max-width: 760px) {
+      form, .filters { grid-template-columns: 1fr; }
+      .description { grid-column: auto; }
+      .ticket { grid-template-columns: 1fr; }
+      .actions { align-items: stretch; flex-direction: column; }
+      .actions select { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Support Ticket System</h1>
+    <p>A simple help desk workflow for small teams.</p>
+  </header>
+
+  <main>
+    <section class="panel" aria-labelledby="create-title">
+      <h2 id="create-title">Create ticket</h2>
+      <form id="ticket-form">
+        <label>Subject<input name="subject" minlength="3" maxlength="100" required></label>
+        <label>Requester email<input name="requesterEmail" type="email" required></label>
+        <label>Priority
+          <select name="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <label class="description">Description<textarea name="description" minlength="10" maxlength="1000" required></textarea></label>
+        <button class="primary" type="submit">Submit ticket</button>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="queue-title">
+      <h2 id="queue-title">Ticket queue</h2>
+      <div class="filters">
+        <label>Search<input id="search" type="search" placeholder="Subject, requester, or description"></label>
+        <label>Status
+          <select id="status-filter">
+            <option value="">All statuses</option>
+            <option value="open">Open</option>
+            <option value="in-progress">In progress</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </label>
+        <label>Priority
+          <select id="priority-filter">
+            <option value="">All priorities</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </label>
+        <span id="count">0 tickets</span>
+      </div>
+      <div id="tickets" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector('#ticket-form');
+    const message = document.querySelector('#message');
+    const search = document.querySelector('#search');
+    const statusFilter = document.querySelector('#status-filter');
+    const priorityFilter = document.querySelector('#priority-filter');
+    const count = document.querySelector('#count');
+    const ticketsRoot = document.querySelector('#tickets');
+    const statusLabels = { open: 'Open', 'in-progress': 'In progress', resolved: 'Resolved' };
+    let searchTimer;
+
+    function showMessage(text, isError = false) {
+      message.textContent = text;
+      message.classList.toggle('error', isError);
+    }
+
+    async function api(path, options) {
+      const response = await fetch(path, options);
+      if (response.status === 204) return null;
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error || body.errors?.join(', ') || 'Request failed');
+      return body;
+    }
+
+    function statusSelect(ticket) {
+      const select = document.createElement('select');
+      select.setAttribute('aria-label', `Status for ${ticket.subject}`);
+      Object.entries(statusLabels).forEach(([value, label]) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        option.selected = ticket.status === value;
+        select.append(option);
+      });
+      select.addEventListener('change', async () => {
+        try {
+          await api(`/api/tickets/${ticket.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: select.value })
+          });
+          showMessage(`Ticket moved to ${statusLabels[select.value]}.`);
+          await loadTickets();
+        } catch (error) {
+          showMessage(error.message, true);
+          select.value = ticket.status;
+        }
+      });
+      return select;
+    }
+
+    function ticketCard(ticket) {
+      const card = document.createElement('article');
+      card.className = 'ticket';
+
+      const details = document.createElement('div');
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const priority = document.createElement('span');
+      priority.className = `badge ${ticket.priority}`;
+      priority.textContent = `${ticket.priority} priority`;
+      const heading = document.createElement('h3');
+      heading.textContent = ticket.subject;
+      const description = document.createElement('p');
+      description.textContent = ticket.description;
+      const email = document.createElement('a');
+      email.href = `mailto:${ticket.requesterEmail}`;
+      email.textContent = ticket.requesterEmail;
+      meta.append(priority);
+      details.append(meta, heading, description, email);
+
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      const remove = document.createElement('button');
+      remove.className = 'delete';
+      remove.type = 'button';
+      remove.textContent = 'Delete';
+      remove.addEventListener('click', async () => {
+        if (!window.confirm(`Delete “${ticket.subject}”?`)) return;
+        try {
+          await api(`/api/tickets/${ticket.id}`, { method: 'DELETE' });
+          showMessage('Ticket deleted.');
+          await loadTickets();
+        } catch (error) {
+          showMessage(error.message, true);
+        }
+      });
+      actions.append(statusSelect(ticket), remove);
+      card.append(details, actions);
+      return card;
+    }
+
+    async function loadTickets() {
+      const params = new URLSearchParams();
+      if (search.value.trim()) params.set('q', search.value.trim());
+      if (statusFilter.value) params.set('status', statusFilter.value);
+      if (priorityFilter.value) params.set('priority', priorityFilter.value);
+
+      try {
+        const tickets = await api(`/api/tickets?${params}`);
+        ticketsRoot.replaceChildren();
+        count.textContent = `${tickets.length} ${tickets.length === 1 ? 'ticket' : 'tickets'}`;
+        if (tickets.length === 0) {
+          const empty = document.createElement('p');
+          empty.className = 'empty';
+          empty.textContent = 'No tickets match these filters.';
+          ticketsRoot.append(empty);
+          return;
+        }
+        tickets.forEach((ticket) => ticketsRoot.append(ticketCard(ticket)));
+      } catch (error) {
+        ticketsRoot.replaceChildren();
+        showMessage(error.message, true);
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      try {
+        await api('/api/tickets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        form.reset();
+        showMessage('Ticket submitted.');
+        await loadTickets();
+      } catch (error) {
+        showMessage(error.message, true);
+      }
+    });
+
+    search.addEventListener('input', () => {
+      window.clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(loadTickets, 250);
+    });
+    statusFilter.addEventListener('change', loadTickets);
+    priorityFilter.addEventListener('change', loadTickets);
+    loadTickets();
+  </script>
+</body>
+</html>
