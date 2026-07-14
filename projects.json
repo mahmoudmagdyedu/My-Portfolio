@@ -1,5 +1,22 @@
 [
   {
+    "slug": "support-ticket-system",
+    "name": "Support Ticket System",
+    "tagline": "Simple help desk workflow",
+    "description": "Node.js + Express support ticket dashboard for submitting, filtering, prioritizing, updating, and resolving tickets with JSON-file persistence.",
+    "emoji": "\uD83C\uDFAB",
+    "image": "https://images.unsplash.com/photo-1525182008055-f88b95ff7980?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "JavaScript",
+      "JSON"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/fullstack/support-ticket-system",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/fullstack/support-ticket-system",
+    "category": "fullstack"
+  },
+  {
     "slug": "mini-crm",
     "name": "Mini CRM",
     "tagline": "Lightweight customer pipeline",
