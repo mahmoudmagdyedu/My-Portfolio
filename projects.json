@@ -1,5 +1,22 @@
 [
   {
+    "slug": "url-shortener-api",
+    "name": "URL Shortener API",
+    "tagline": "Create and resolve short links",
+    "description": "Node.js + Express REST API for creating custom short links, tracking redirect clicks, and storing link data in a local JSON file.",
+    "emoji": "🔗",
+    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=40&fm=webp",
+    "tags": [
+      "Node.js",
+      "Express",
+      "REST API",
+      "JSON"
+    ],
+    "live": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/url-shortener-api",
+    "code": "https://github.com/mahmoudmagdyedu/My-Portfolio/tree/main/backend/url-shortener-api",
+    "category": "backend"
+  },
+  {
     "slug": "support-ticket-system",
     "name": "Support Ticket System",
     "tagline": "Simple help desk workflow",
